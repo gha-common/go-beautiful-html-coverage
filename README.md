@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD041 MD033 -->
-# `kilianc/go-beautiful-html-coverage`
+# `go-beautiful-html-coverage`
 
 A GitHub Action to track code coverage in your pull requests, with a beautiful HTML preview, for free.
 
