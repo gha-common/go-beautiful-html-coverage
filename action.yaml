@@ -1,4 +1,4 @@
-name: 'Go Coverage'
+name: 'Go Beautiful HTML Coverage'
 description: 'A GitHub Action to track code coverage in your pull requests, with a beautiful HTML preview, for free.'
 author: 'Kilian Ciuffolo'
 branding:
