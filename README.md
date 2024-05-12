@@ -33,7 +33,7 @@ jobs:
         run: make test
 
       - name: Go Beautiful HTML Coverage
-        uses: 'kilianc/go-beautiful-html-coverage@main'
+        uses: 'kilianc/go-beautiful-html-coverage@v1'
 ```
 
 ## How it works
@@ -67,7 +67,7 @@ Once the files are generated, the GHA does the following:
 
 ```yaml
 - name: Go Beautiful HTML Coverage
-  uses: 'kilianc/go-beautiful-html-coverage@main'
+  uses: 'kilianc/go-beautiful-html-coverage@v1'
   with:
     # Repository name with owner. For example, actions/checkout.
     # Default: ${{ github.repository }}
@@ -88,7 +88,7 @@ Once the files are generated, the GHA does the following:
 
 ```yaml
 - name: Go Beautiful HTML Coverage
-  uses: 'kilianc/go-beautiful-html-coverage@main'
+  uses: 'kilianc/go-beautiful-html-coverage@v1'
   with:
     branch: 'my-coverage'
 ```
@@ -101,7 +101,7 @@ This is helpful if you don't want to clutter your project's repo, or if you want
 
 ```yaml
 - name: Go Beautiful HTML Coverage
-  uses: 'kilianc/go-beautiful-html-coverage@main'
+  uses: 'kilianc/go-beautiful-html-coverage@v1'
   with:
     repository: yourname/coverage
     token: ${{ secrets.GHA_COVERAGE_TOKEN }}
