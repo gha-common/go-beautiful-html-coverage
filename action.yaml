@@ -15,7 +15,7 @@ inputs:
     description: The token to use for pushing to the repository.
     default: ${{ github.token }}
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout Coverage Branch
       uses: actions/checkout@v4
@@ -64,6 +64,6 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         script: |
-          const script = require('./src/update-comment.js')
+          const script = require('${GITHUB_ACTION_PATH}/src/update-comment.js')
           const revision = '${{ github.event.pull_request.head.sha || github.sha }}'
           await script({ context, github }, revision)
