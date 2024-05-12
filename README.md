@@ -18,8 +18,10 @@ Once the files are generated, the GHA does the following:
 1. `git-push` the `<sha>.html` file to the orphan branch. This will trigger a `GitHub Pages` deployment.
 1. Post a comment to your PR with your code coverage summary (`cover.txt`) and a link to your `<sha>.html`.
 
-![PR Comment](https://github.com/kilianc/go-coverage-action/assets/385716/db3512e5-acbb-441e-9f5e-2ed5f8c6a65c)
-![HTML Preview](https://github.com/kilianc/go-coverage-action/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9)
+### Screenshots
+<br>
+<img width="912" alt="PR Comment" src="https://github.com/kilianc/go-coverage-action/assets/385716/99b01c85-f573-44cb-b554-64e9495aa7d1">
+<img width="822" alt="HTML Preview" src="https://github.com/kilianc/go-coverage-action/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9">
 
 ## Usage
 
