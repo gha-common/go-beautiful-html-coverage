@@ -1,0 +1,61 @@
+name: 'Hello World'
+description: 'Greet someone'
+inputs:
+  repository:
+    description: 'Repository name with owner. For example, actions/checkout'
+    default: ${{ github.repository }}
+  branch:
+    default: cover
+    description: >
+      The branch to checkout and push coverage to.
+outputs:
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-number }}
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Coverage Branch
+      uses: actions/checkout@v4
+      with:
+        path: go-cover
+
+    - name: Checkout Coverage Branch
+      shell: bash
+      run: |
+        cd go-cover
+        git fetch origin
+        if git rev-parse --verify origin/${{ inputs.branch }}; then
+          git checkout ${{ inputs.branch }}
+          git pull origin ${{ inputs.branch }}
+        else
+          git checkout --orphan ${{ inputs.branch }}
+          rm .git/index
+          git clean -fdx
+          touch index.html
+          git add index.html
+          git config user.email "gha@github.com"
+          git config user.name "GHA"
+          git commit -m "chore: initial commit"
+          git push origin ${{ inputs.branch }}
+        fi
+
+    - name: Push Coverage
+      shell: bash
+      run: |
+        export REVISION=${{ github.event.pull_request.head.sha || github.sha }}
+        cd go-cover
+        mv ../cover.html ${REVISION}.html
+        git add -f ${REVISION}.html
+        git config user.email "gha@github.com"
+        git config user.name "GHA"
+        git commit -m "chore: add cover for ${REVISION}"
+        git push origin ${{ inputs.branch }}
+
+    - name: Post Code Coverage Comment
+      if: ${{ github.event_name == 'pull_request' }}
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const script = require('${{ github.workspace }}/src/update-code-coverage-comment.js')
+          await script({ context, github })
