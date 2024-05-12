@@ -37,7 +37,7 @@ runs:
           rm .git/index
           git clean -fdx
           touch index.html
-          cp ../nord.css .
+          cp ${GITHUB_ACTION_PATH}/assets/nord.css .
           git add index.html nord.css
           git config user.email "go-coverage-action@github.com"
           git config user.name "go-coverage-action"
