@@ -6,14 +6,10 @@ inputs:
     default: ${{ github.repository }}
   branch:
     default: cover
-    description: The branch to checkout and push coverage to.
+    description: The branch to checkout or create and push coverage to.
   token:
     description: The token to use for pushing to the repository.
     default: ${{ github.token }}
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
 runs:
   using: "composite"
   steps:
