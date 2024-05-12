@@ -1,11 +1,16 @@
-on: [push]
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
     permissions:
-      issues: write
       pull-requests: write
       contents: write
     steps:
@@ -16,9 +21,12 @@ jobs:
         with:
           go-version: '1.22'
 
-      - name: Test
-        run: make cover.html
+      - name: Generate Coverage Files
+        run: |
+          make cover.txt
+          make cover.html
 
-      - uses: './'
+      - name: Upload Coverage
+        uses: './'
         with:
           branch: 'cover'

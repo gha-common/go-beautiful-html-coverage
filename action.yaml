@@ -6,8 +6,10 @@ inputs:
     default: ${{ github.repository }}
   branch:
     default: cover
-    description: >
-      The branch to checkout and push coverage to.
+    description: The branch to checkout and push coverage to.
+  token:
+    description: The token to use for pushing to the repository.
+    default: ${{ github.token }}
 outputs:
   random-number:
     description: "Random number"
@@ -18,7 +20,9 @@ runs:
     - name: Checkout Coverage Branch
       uses: actions/checkout@v4
       with:
+        repository: ${{ inputs.repository }}
         path: go-cover
+        token: ${{ inputs.token }}
 
     - name: Checkout Coverage Branch
       shell: bash
@@ -33,9 +37,10 @@ runs:
           rm .git/index
           git clean -fdx
           touch index.html
-          git add index.html
-          git config user.email "gha@github.com"
-          git config user.name "GHA"
+          cp ../nord.css .
+          git add index.html nord.css
+          git config user.email "go-coverage-action@github.com"
+          git config user.name "go-coverage-action"
           git commit -m "chore: initial commit"
           git push origin ${{ inputs.branch }}
         fi
@@ -43,19 +48,22 @@ runs:
     - name: Push Coverage
       shell: bash
       run: |
-        export REVISION=${{ github.event.pull_request.head.sha || github.sha }}
+        export REVISION="${{ github.event.pull_request.head.sha || github.sha }}"
         cd go-cover
         mv ../cover.html ${REVISION}.html
+        ex -sc '%s/<style>/<style>@import url("nord.css");/' -c 'x' ${REVISION}.html
         git add -f ${REVISION}.html
-        git config user.email "gha@github.com"
-        git config user.name "GHA"
-        git commit -m "chore: add cover for ${REVISION}"
+        git config user.email "go-coverage-action@github.com"
+        git config user.name "go-coverage-action"
+        git commit -m "chore: add cover for ${REVISION}" || true
         git push origin ${{ inputs.branch }}
 
     - name: Post Code Coverage Comment
       if: ${{ github.event_name == 'pull_request' }}
       uses: actions/github-script@v6
       with:
+        github-token: ${{ inputs.token }}
         script: |
-          const script = require('${{ github.workspace }}/src/update-code-coverage-comment.js')
-          await script({ context, github })
+          const script = require('${{ github.workspace }}/update-code-coverage-comment.js')
+          const revision = '${{ github.event.pull_request.head.sha || github.sha }}'
+          await script({ context, github }, revision)
