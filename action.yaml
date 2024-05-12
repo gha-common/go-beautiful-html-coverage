@@ -60,6 +60,6 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         script: |
-          const script = require('${{ github.workspace }}/update-code-coverage-comment.js')
+          const script = require('${{ github.workspace }}/src/update-comment.js')
           const revision = '${{ github.event.pull_request.head.sha || github.sha }}'
           await script({ context, github }, revision)

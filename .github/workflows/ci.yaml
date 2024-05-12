@@ -23,10 +23,10 @@ jobs:
 
       - name: Generate Coverage Files
         run: |
+          cd go-test-app
           make cover.txt
           make cover.html
+          mv cover.* ../
 
-      - name: Upload Coverage
+      - name: Go Coverage
         uses: './'
-        with:
-          branch: 'cover'

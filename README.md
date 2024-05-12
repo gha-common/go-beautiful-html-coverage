@@ -1,6 +1,7 @@
+<!-- markdownlint-disable MD041 MD033 -->
 # `kilianc/go-coverage-action`
 
-A GitHub Action to track your code coverage in your pull requests, with a beautiful HTML preview, for free.
+A GitHub Action to track code coverage in your pull requests, with a beautiful HTML preview, for free.
 
 ## How it works
 
@@ -9,16 +10,17 @@ This GHA expects two files to be present in the root of your repo at runtime:
 - `cover.txt` is the output of `go tool cover -func=cover.out -o cover.txt`
 - `cover.html` is the output of `go tool cover -html=cover.out -o cover.html`
 
-Both `go tool cover` commands can be configured to your liking. For examples on how you might do that you can peak at [`Makefile`](./Makefile), or some of my other go projects like [`pretender`](https://github.com/kilianc/pretender/blob/main/Makefile#L44-L57) and [`base-go-cli`](https://github.com/kilianc/base-golang-cli/blob/main/Makefile#L76-L92).
+Both `go tool cover` commands can be configured to your liking. For examples on how you might do that you can peak at [`Makefile`](go-test-app/Makefile), or some of my other go projects like [`pretender`](https://github.com/kilianc/pretender/blob/main/Makefile#L44-L57) and [`base-go-cli`](https://github.com/kilianc/base-golang-cli/blob/main/Makefile#L76-L92).
 
 Once the files are generated, the GHA does the following:
 
-1. Create and push new orphan branch if one doesn't exist.
-1. Customize `cover.html` with [`nord.css`](./nord.css) and rename it `<sha>.html`.
+1. Create and push [new orphan branch](https://github.com/kilianc/go-coverage-action/tree/cover) if one doesn't exist.
+1. Customize `cover.html` with [`nord.css`](assets/nord.css) and rename it `<sha>.html`.
 1. `git-push` the `<sha>.html` file to the orphan branch. This will trigger a `GitHub Pages` deployment.
 1. Post a comment to your PR with your code coverage summary (`cover.txt`) and a link to your `<sha>.html`.
 
 ### Screenshots
+
 <br>
 <img width="912" alt="PR Comment" src="https://github.com/kilianc/go-coverage-action/assets/385716/99b01c85-f573-44cb-b554-64e9495aa7d1">
 <img width="822" alt="HTML Preview" src="https://github.com/kilianc/go-coverage-action/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9">
