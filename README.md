@@ -7,7 +7,7 @@ A GitHub Action to track your code coverage in your pull requests, with a beauti
 This GHA expects two files to be present in the root of your repo at runtime:
 
 - `cover.txt` is the output of `go tool cover -func=cover.out -o cover.txt`
-- `cover.html`is the output of `go tool cover -html=cover.out -o cover.html`
+- `cover.html` is the output of `go tool cover -html=cover.out -o cover.html`
 
 Both `go tool cover` commands can be configured to your liking. For examples on how you might do that you can peak at [`Makefile`](./Makefile), or some of my other go projects like [`pretender`](https://github.com/kilianc/pretender/blob/main/Makefile#L44-L57) and [`base-go-cli`](https://github.com/kilianc/base-golang-cli/blob/main/Makefile#L76-L92).
 
@@ -15,11 +15,10 @@ Once the files are generated, the GHA does the following:
 
 1. Create and push new orphan branch if one doesn't exist.
 1. Customize `cover.html` with [`nord.css`](./nord.css) and rename it `<sha>.html`.
-1. `git-push` the `<sha>.html` file to the orphan branch. This will trigger a GitHub pages deployment.
+1. `git-push` the `<sha>.html` file to the orphan branch. This will trigger a `GitHub Pages` deployment.
 1. Post a comment to your PR with your code coverage summary (`cover.txt`) and a link to your `<sha>.html`.
 
 ![PR Comment](https://github.com/kilianc/go-coverage-action/assets/385716/db3512e5-acbb-441e-9f5e-2ed5f8c6a65c)
-
 ![HTML Preview](https://github.com/kilianc/go-coverage-action/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9)
 
 ## Usage
@@ -56,7 +55,7 @@ jobs:
 ```
 
 > [!NOTE]
-> In order for the HTML preview links to work, configure `GitHub Pages` in your target repo *(`Settings > Pages`)* to `Deploy from a branch` and pick your target branch, `cover` is the default.
+> In order for the HTML preview links to work, configure `GitHub Pages` in your target repo *(`Settings > Pages`)* to `Deploy from a branch` and pick your target branch, which is, by default, `cover`.
 >
 > ![GitHub Pages Setup](https://github.com/kilianc/go-coverage-action/assets/385716/a14f4df6-6263-4ae3-8685-e7901a1dbbe2)
 
@@ -94,7 +93,7 @@ Just make sure to update the `GitHub Pages` deployment settings to match.
 
 **You can customize the repository that hosts the code coverage files.**
 
-This is helpful if you don't want to clutter your project's repo, or if you want to centralize coverage reporting across multiple repos, or you can't turn on GitHub Pages in your project's repo.
+This is helpful if you don't want to clutter your project's repo, or if you want to centralize coverage reporting across multiple repos, or you can't turn on `GitHub Pages` in your project's repo.
 
 ```yaml
 - name: Go Coverage
