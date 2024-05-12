@@ -1,6 +1,7 @@
+<!-- markdownlint-disable MD041 MD033 -->
 # `kilianc/go-coverage-action`
 
-A GitHub Action to track your code coverage in your pull requests, with a beautiful HTML preview, for free.
+A GitHub Action to track code coverage in your pull requests, with a beautiful HTML preview, for free.
 
 ## How it works
 
@@ -19,6 +20,7 @@ Once the files are generated, the GHA does the following:
 1. Post a comment to your PR with your code coverage summary (`cover.txt`) and a link to your `<sha>.html`.
 
 ### Screenshots
+
 <br>
 <img width="912" alt="PR Comment" src="https://github.com/kilianc/go-coverage-action/assets/385716/99b01c85-f573-44cb-b554-64e9495aa7d1">
 <img width="822" alt="HTML Preview" src="https://github.com/kilianc/go-coverage-action/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9">
