@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD041 MD033 -->
-# `kilianc/go-coverage-action`
+# `kilianc/github-action-go-coverage`
 
 A GitHub Action to track code coverage in your pull requests, with a beautiful HTML preview, for free.
 
@@ -14,7 +14,7 @@ Both `go tool cover` commands can be configured to your liking. For examples on 
 
 Once the files are generated, the GHA does the following:
 
-1. Create and push [new orphan branch](https://github.com/kilianc/go-coverage-action/tree/cover) if one doesn't exist.
+1. Create and push [new orphan branch](https://github.com/kilianc/github-action-go-coverage/tree/cover) if one doesn't exist.
 1. Customize `cover.html` with [`nord.css`](assets/nord.css) and rename it `<sha>.html`.
 1. `git-push` the `<sha>.html` file to the orphan branch. This will trigger a `GitHub Pages` deployment.
 1. Post a comment to your PR with your code coverage summary (`cover.txt`) and a link to your `<sha>.html`.
@@ -22,8 +22,8 @@ Once the files are generated, the GHA does the following:
 ### Screenshots
 
 <br>
-<img width="912" alt="PR Comment" src="https://github.com/kilianc/go-coverage-action/assets/385716/99b01c85-f573-44cb-b554-64e9495aa7d1">
-<img width="822" alt="HTML Preview" src="https://github.com/kilianc/go-coverage-action/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9">
+<img width="912" alt="PR Comment" src="https://github.com/kilianc/github-action-go-coverage/assets/385716/99b01c85-f573-44cb-b554-64e9495aa7d1">
+<img width="822" alt="HTML Preview" src="https://github.com/kilianc/github-action-go-coverage/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9">
 
 ## Usage
 
@@ -55,19 +55,19 @@ jobs:
         run: make test
 
       - name: Go Coverage
-        uses: 'kilianc/go-coverage-action@main'
+        uses: 'kilianc/github-action-go-coverage@main'
 ```
 
 > [!NOTE]
 > In order for the HTML preview links to work, configure `GitHub Pages` in your target repo *(`Settings > Pages`)* to `Deploy from a branch` and pick your target branch, which is, by default, `cover`.
 >
-> ![GitHub Pages Setup](https://github.com/kilianc/go-coverage-action/assets/385716/a14f4df6-6263-4ae3-8685-e7901a1dbbe2)
+> ![GitHub Pages Setup](https://github.com/kilianc/github-action-go-coverage/assets/385716/a14f4df6-6263-4ae3-8685-e7901a1dbbe2)
 
 ## Reference
 
 ```yaml
 - name: Go Coverage
-  uses: 'kilianc/go-coverage-action@main'
+  uses: 'kilianc/github-action-go-coverage@main'
   with:
     # Repository name with owner. For example, actions/checkout.
     # Default: ${{ github.repository }}
@@ -88,7 +88,7 @@ jobs:
 
 ```yaml
 - name: Go Coverage
-  uses: 'kilianc/go-coverage-action@main'
+  uses: 'kilianc/github-action-go-coverage@main'
   with:
     branch: 'my-coverage'
 ```
@@ -101,7 +101,7 @@ This is helpful if you don't want to clutter your project's repo, or if you want
 
 ```yaml
 - name: Go Coverage
-  uses: 'kilianc/go-coverage-action@main'
+  uses: 'kilianc/github-action-go-coverage@main'
   with:
     repository: yourname/coverage
     token: ${{ secrets.GHA_COVERAGE_TOKEN }}
