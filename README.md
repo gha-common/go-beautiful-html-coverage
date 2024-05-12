@@ -1,19 +1,33 @@
-# go-coverage-action
+# `kilianc/go-coverage-action`
 
-This GitHub Action posts a comment in your pull requests, with a summary of your code coverage and a link to a HTML preview. It expects a cover.html to be generated in the root of your repository, using `go tool cover -html=cover.out -o cover.html` (see [Makefile](./Makefile) for examples).
+A GitHub Action to track your code coverage in your pull requests, with a beautiful HTML preview, for free.
 
-![](https://github.com/kilianc/go-coverage-action/assets/385716/db3512e5-acbb-441e-9f5e-2ed5f8c6a65c)
+## How it works
 
-![](https://github.com/kilianc/go-coverage-action/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9)
+This GHA expects two files to be present in the root of your repo at runtime:
+
+- `cover.txt` is the output of `go tool cover -func=cover.out -o cover.txt`
+- `cover.html`is the output of `go tool cover -html=cover.out -o cover.html`
+
+Both `go tool cover` commands can be configured to your liking. For examples on how you might do that you can peak at [`Makefile`](./Makefile), or some of my other go projects like [`pretender`](https://github.com/kilianc/pretender/blob/main/Makefile#L44-L57) and [`base-go-cli`](https://github.com/kilianc/base-golang-cli/blob/main/Makefile#L76-L92).
+
+Once the files are generated, the GHA does the following:
+
+1. Create and push new orphan branch if one doesn't exist.
+1. Customize `cover.html` with [`nord.css`](./nord.css) and rename it `<sha>.html`.
+1. `git-push` the `<sha>.html` file to the orphan branch. This will trigger a GitHub pages deployment.
+1. Post a comment to your PR with your code coverage summary (`cover.txt`) and a link to your `<sha>.html`.
+
+![PR Comment](https://github.com/kilianc/go-coverage-action/assets/385716/db3512e5-acbb-441e-9f5e-2ed5f8c6a65c)
+
+![HTML Preview](https://github.com/kilianc/go-coverage-action/assets/385716/bb4361f3-34db-4c9d-9970-794d3dded7b9)
 
 ## Usage
 
-
-
-## Examples
+To use this action simply add it to your pre-existent ci workflow. A bare minimal example might look like this:
 
 ```yaml
-name: CI
+name: Go
 
 on:
   push:
@@ -23,26 +37,75 @@ on:
 
 jobs:
   test:
-    name: Test
+    name: Build and Test
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write # required for posting comments
-      contents: write      # required for git push
+      pull-requests: write        # required for posting comments
+      contents: write             # required for git push
     steps:
-      - uses: actions/checkout@v4          #
-                                           #
-      - name: Set up Go                    #
-        uses: actions/setup-go@v5          #
-        with:                              #
-          go-version: '1.22'               # this is your ci pipelines
-                                           #
-      - name: Generate Coverage Files      #
-        run: |                             #
-          make cover.txt                   #
-          make cover.html                  #
+      - uses: actions/checkout@v4
 
-      - name: Upload Coverage
+      - name: Set up Go
+        uses: actions/setup-go@v5
+
+      - name: Test                # this should generate cover.<txt|html>
+        run: make test
+
+      - name: Go Coverage
         uses: 'kilianc/go-coverage-action@main'
-        with:
-          branch: 'cover'
 ```
+
+> [!NOTE]
+> In order for the HTML preview links to work, configure `GitHub Pages` in your target repo *(`Settings > Pages`)* to `Deploy from a branch` and pick your target branch, `cover` is the default.
+>
+> ![GitHub Pages Setup](https://github.com/kilianc/go-coverage-action/assets/385716/a14f4df6-6263-4ae3-8685-e7901a1dbbe2)
+
+## Reference
+
+```yaml
+- name: Go Coverage
+  uses: 'kilianc/go-coverage-action@main'
+  with:
+    # Repository name with owner. For example, actions/checkout.
+    # Default: ${{ github.repository }}
+    repository: ''
+
+    # The branch to checkout or create and push coverage to.
+    # Defalut: 'cover'
+    branch: ''
+
+    # The token to use for pushing to the repository.
+    # Default: ${{ github.token }}
+    token: ''
+```
+
+## Examples
+
+**You can customize the name of the branch that hosts the code coverage files.**
+
+```yaml
+- name: Go Coverage
+  uses: 'kilianc/go-coverage-action@main'
+  with:
+    branch: 'my-coverage'
+```
+
+Just make sure to update the `GitHub Pages` deployment settings to match.
+
+**You can customize the repository that hosts the code coverage files.**
+
+This is helpful if you don't want to clutter your project's repo, or if you want to centralize coverage reporting across multiple repos, or you can't turn on GitHub Pages in your project's repo.
+
+```yaml
+- name: Go Coverage
+  uses: 'kilianc/go-coverage-action@main'
+  with:
+    repository: yourname/coverage
+    token: ${{ secrets.GHA_COVERAGE_TOKEN }}
+```
+
+Where `GHA_COVERAGE_TOKEN` is a repository secret with a personal token that has write access to `yourname/coverage`.
+
+## License
+
+MIT License, see [LICENSE](./LICENSE.md)
