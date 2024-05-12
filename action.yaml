@@ -15,7 +15,7 @@ inputs:
     description: The token to use for pushing to the repository.
     default: ${{ github.token }}
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout Coverage Branch
       uses: actions/checkout@v4
@@ -37,7 +37,7 @@ runs:
           rm .git/index
           git clean -fdx
           touch index.html
-          cp ../nord.css .
+          cp ${GITHUB_ACTION_PATH}/assets/nord.css .
           git add index.html nord.css
           git config user.email "go-coverage-action@github.com"
           git config user.name "go-coverage-action"
@@ -64,6 +64,6 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         script: |
-          const script = require('${{ github.workspace }}/src/update-comment.js')
+          const script = require(`${process.env.GITHUB_ACTION_PATH}/src/update-comment.js`)
           const revision = '${{ github.event.pull_request.head.sha || github.sha }}'
           await script({ context, github }, revision)
