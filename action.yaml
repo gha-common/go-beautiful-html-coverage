@@ -1,5 +1,5 @@
-name: 'Hello World'
-description: 'Greet someone'
+name: 'Go Coverage Action'
+description: 'Adds HTML coverage for Go application to your PRs'
 inputs:
   repository:
     description: 'Repository name with owner. For example, actions/checkout'
