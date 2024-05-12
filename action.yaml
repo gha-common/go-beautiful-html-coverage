@@ -1,5 +1,5 @@
 name: 'Go Coverage Action'
-description: 'Adds HTML coverage for Go application to your PRs'
+description: 'A GitHub Action to track code coverage in your pull requests, with a beautiful HTML preview, for free.'
 author: 'Kilian Ciuffolo'
 branding:
   icon: 'bar-chart'
