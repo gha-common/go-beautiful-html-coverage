@@ -1,5 +1,9 @@
 name: 'Go Coverage Action'
 description: 'Adds HTML coverage for Go application to your PRs'
+author: 'Kilian Ciuffolo'
+branding:
+  icon: 'bar-chart'
+  color: 'green'
 inputs:
   repository:
     description: 'Repository name with owner. For example, actions/checkout'
