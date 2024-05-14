@@ -26,5 +26,3 @@ jobs:
 
       - name: Go Beautiful HTML Coverage
         uses: './'
-        with:
-          branch: cover-tmp
