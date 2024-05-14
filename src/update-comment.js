@@ -15,12 +15,12 @@ const updateCodeCoverageComment = module.exports = async ({ context, github, pat
   const coverageText = fs.readFileSync(`go-cover/${revision}.txt`, 'utf8').split('\n').slice(0, -1)
   const coverageTextSummary = coverageText[coverageText.length-1].split('\t').pop()
   const coverage = parseFloat(coverageTextSummary.replace('%', ''), 10)
-  const coverageEmoji = coverage >= threshold ? '' : '🔻 '
-  const pathText = (path !== './' ? ` for \`${path}/\`` : '').replace('//', '/')
+  const coverageEmoji = coverage >= threshold ? '' : `<kbd>🔻</kbd> ${threshold - coverage}%`
+  const pathText = (path !== './' ? ` for <kbd>${path}/</kbd>` : '').replace('//', '/')
 
   const commentBody = [
     `<!-- coverage (${path})-->`,
-    `# ${coverageEmoji}<kbd>[🔗 Code Coverage Report](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision})${pathText} at ${revision}</kbd>`,
+    `##### ${coverageEmoji}<kbd>[🔗 Code Coverage Report](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision})</kbd>${pathText} at <kbd>${revision}</kbd>`,
     '```',
     `📔 Total: ${coverageTextSummary}`,
   ]
