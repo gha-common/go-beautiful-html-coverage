@@ -14,6 +14,9 @@ inputs:
   token:
     description: The token to use for pushing to the repository.
     default: ${{ github.token }}
+  path:
+    description: The relative path of your go project. Useful for monorepos and custom folder structures.
+    default: './'
 runs:
   using: composite
   steps:
@@ -42,10 +45,12 @@ runs:
       shell: bash
       run: |
         export REVISION="${{ github.event.pull_request.head.sha || github.sha }}"
+        cd ${{ inputs.path }}
         go tool cover -func=cover.out -o cover.txt
         go tool cover -html=cover.out -o cover.html
-        cd go-cover
-        mv ../cover.html ${REVISION}.html
+        mv cover.html ${GITHUB_WORKSPACE}/go-cover/${REVISION}.html
+        mv cover.txt ${GITHUB_WORKSPACE}/go-cover/${REVISION}.txt
+        cd ${GITHUB_WORKSPACE}/go-cover
         ex -sc '%s/<style>/<style>@import url("nord.css");/' -c 'x' ${REVISION}.html
         ex -sc '%s/<\/script>/<\/script><script src="ln.js"><\/script>/' -c 'x' ${REVISION}.html
         cp ${GITHUB_ACTION_PATH}/assets/* .
@@ -63,4 +68,5 @@ runs:
         script: |
           const script = require(`${process.env.GITHUB_ACTION_PATH}/src/update-comment.js`)
           const revision = '${{ github.event.pull_request.head.sha || github.sha }}'
-          await script({ context, github }, revision)
+          const path = '${{ inputs.path }}'
+          await script({ context, github }, path, revision)

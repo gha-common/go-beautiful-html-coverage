@@ -44,7 +44,7 @@ This GHA expects `cover.out` to be present in the root of your repo at runtime. 
 go test -coverprofile=cover.out ./...
 ```
 
-For examples on how you might do that you can peak at the [`Makefile`](./Makefile), or some of my other go projects like [`pretender`](https://github.com/kilianc/pretender/blob/main/Makefile#L44-L57) and [`base-go-cli`](https://github.com/kilianc/base-golang-cli/blob/main/Makefile#L76-L92).
+For examples on how you might do that you can peak at the `go-test-app` [`go-test-app/Makefile`](./Makefile), or some of my other go projects like [`pretender`](https://github.com/kilianc/pretender/blob/main/Makefile#L44-L57) and [`base-go-cli`](https://github.com/kilianc/base-golang-cli/blob/main/Makefile#L76-L92).
 
 Once your test has ran and `cover.out` has been generated, the GHA does the following:
 
@@ -82,6 +82,10 @@ Once your test has ran and `cover.out` has been generated, the GHA does the foll
     # The token to use for pushing to the repository.
     # Default: ${{ github.token }}
     token: ''
+
+    # The relative path of your go project. Useful for monorepos and custom folder structures.
+    # Default: ./
+    path: ''
 ```
 
 ## Examples
@@ -110,6 +114,22 @@ This is helpful if you don't want to clutter your project's repo, or if you want
 ```
 
 Where `GHA_COVERAGE_TOKEN` is a repository secret with a personal token that has write access to `yourname/coverage`.
+
+**You can customize the path to your go project in the repo.**
+
+This is helpful if you have a monorepo with multiple apps, or simply you keep your go files in a subfolder. Just make sure to generate `cover.out` for all your apps before running this GHA.
+
+```yaml
+- name: Go Beautiful HTML Coverage
+  uses: 'gha-common/go-beautiful-html-coverage@v1'
+  with:
+    path: ./go-app-01
+
+- name: Go Beautiful HTML Coverage
+  uses: 'gha-common/go-beautiful-html-coverage@v1'
+  with:
+    path: ./go-app-02
+```
 
 ## License
 

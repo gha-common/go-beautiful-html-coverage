@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const updateCodeCoverageComment = module.exports = async ({ context, github }, revision) => {
+const updateCodeCoverageComment = module.exports = async ({ context, github }, path, revision) => {
   const comments = await github.rest.issues.listComments({
     owner: context.repo.owner,
     repo: context.repo.repo,
@@ -9,15 +9,15 @@ const updateCodeCoverageComment = module.exports = async ({ context, github }, r
   })
 
   const coverageComment = comments.data.find((comment) => {
-    return comment.body.startsWith('<!-- coverage -->')
+    return comment.body.startsWith(`<!-- coverage (${path})-->`)
   }) || {}
 
-  const coverageText = fs.readFileSync('cover.txt', 'utf8').split('\n').slice(0, -1)
+  const coverageText = fs.readFileSync(`go-cover/${revision}.txt`, 'utf8').split('\n').slice(0, -1)
   const coverageTextSummary = coverageText[coverageText.length-1].split('\t').pop()
 
   const commentBody = [
-    '<!-- coverage -->',
-    `### [Code Coverage Report 🔗](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision}) for ${revision}`,
+    `<!-- coverage (${path})-->`,
+    `### [Code Coverage Report 🔗](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision}) for \`${path}/\` at ${revision}`,
     '```',
       `Total: ${coverageTextSummary}`,
       '```',
