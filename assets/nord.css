@@ -40,8 +40,8 @@
 }
 
 body {
-	background: var(--nord0) !important;
-	color: var(--nord4) !important;
+  background: var(--nord0) !important;
+  color: var(--nord4) !important;
 }
 
 #topbar {
