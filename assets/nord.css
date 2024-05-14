@@ -68,7 +68,6 @@ pre {
   margin-right: 15px;
   padding-right: 10px;
   color: var(--nord3);
-	background-color: var(--nord0);
 }
 
 .cov0, .cov0 .ln   { color: var(--nord11) !important; }
