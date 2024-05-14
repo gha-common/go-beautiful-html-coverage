@@ -14,10 +14,11 @@ const updateCodeCoverageComment = module.exports = async ({ context, github }, p
 
   const coverageText = fs.readFileSync(`go-cover/${revision}.txt`, 'utf8').split('\n').slice(0, -1)
   const coverageTextSummary = coverageText[coverageText.length-1].split('\t').pop()
+  const pathText = (path !== './' ? ` for \`${path}/\`` : '').replace('//', '/')
 
   const commentBody = [
     `<!-- coverage (${path})-->`,
-    `### [Code Coverage Report 🔗](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision}) for \`${path}/\` at ${revision}`,
+    `### [Code Coverage Report 🔗](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision})${pathText} at ${revision}`,
     '```',
       `Total: ${coverageTextSummary}`,
       '```',
