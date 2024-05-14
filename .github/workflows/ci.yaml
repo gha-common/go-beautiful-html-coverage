@@ -22,11 +22,7 @@ jobs:
           go-version: '1.22'
 
       - name: Generate Coverage Files
-        run: |
-          cd go-test-app
-          make cover.txt
-          make cover.html
-          mv cover.* ../
+        run: make test
 
-      - name: Go Coverage
+      - name: Go Beautiful HTML Coverage
         uses: './'

@@ -36,29 +36,20 @@ runs:
           git checkout --orphan ${{ inputs.branch }}
           rm .git/index
           git clean -fdx
-          touch index.html
         fi
-        cp ${GITHUB_ACTION_PATH}/assets/* .
-        git add .
-        git config user.email "go-coverage-action@github.com"
-        git config user.name "go-coverage-action"
-        if git diff --quiet; then
-          echo "No changes to commit"
-          exit 0
-        fi
-        git commit -m "chore: update assets"
-        git push origin ${{ inputs.branch }}
-
 
     - name: Push Coverage
       shell: bash
       run: |
         export REVISION="${{ github.event.pull_request.head.sha || github.sha }}"
+        go tool cover -func=cover.out -o cover.txt
+        go tool cover -html=cover.out -o cover.html
         cd go-cover
         mv ../cover.html ${REVISION}.html
         ex -sc '%s/<style>/<style>@import url("nord.css");/' -c 'x' ${REVISION}.html
         ex -sc '%s/<\/script>/<\/script><script src="ln.js"><\/script>/' -c 'x' ${REVISION}.html
-        git add -f ${REVISION}.html
+        cp ${GITHUB_ACTION_PATH}/assets/* .
+        git add .
         git config user.email "go-coverage-action@github.com"
         git config user.name "go-coverage-action"
         git commit -m "chore: add cover for ${REVISION}" || true
