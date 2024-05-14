@@ -37,14 +37,15 @@ runs:
           rm .git/index
           git clean -fdx
           touch index.html
-          cp ${GITHUB_ACTION_PATH}/assets/nord.css .
-          cp ${GITHUB_ACTION_PATH}/assets/ln.js .
-          git add index.html nord.css ln.js
-          git config user.email "go-coverage-action@github.com"
-          git config user.name "go-coverage-action"
-          git commit -m "chore: initial commit"
-          git push origin ${{ inputs.branch }}
         fi
+        cp ${GITHUB_ACTION_PATH}/assets/nord.css .
+        cp ${GITHUB_ACTION_PATH}/assets/ln.js .
+        git add .
+        git config user.email "go-coverage-action@github.com"
+        git config user.name "go-coverage-action"
+        git commit -m "chore: update assets"
+        git push origin ${{ inputs.branch }}
+
 
     - name: Push Coverage
       shell: bash
