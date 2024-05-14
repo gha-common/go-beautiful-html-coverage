@@ -25,13 +25,23 @@ jobs:
         run: |
           cd go-test-app-01
           make test
+          cp cover.out ../cover.out
 
       - name: Go Beautiful HTML Coverage
+        if: always()
+        uses: './'
+        with:
+          threshold: 80
+
+      - name: Go Beautiful HTML Coverage
+        if: always()
         uses: './'
         with:
           path: go-test-app-01/
+          threshold: 80
 
       - name: Go Beautiful HTML Coverage
+        if: always()
         uses: './'
         with:
           path: go-test-app-02/
