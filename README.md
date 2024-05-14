@@ -48,7 +48,7 @@ Both `go tool cover` commands can be configured to your liking. For examples on 
 Once the files are generated, the GHA does the following:
 
 1. Create and push [new orphan branch](https://github.com/gha-common/go-beautiful-html-coverage/tree/cover) if one doesn't exist.
-1. Customize `cover.html` with [`nord.css`](assets/nord.css) and rename it `<sha>.html`.
+1. Customize `cover.html` and rename it `<sha>.html`.
 1. `git-push` the `<sha>.html` file to the orphan branch. This will trigger a `GitHub Pages` deployment.
 1. Post a comment to your PR with your code coverage summary (`cover.txt`) and a link to your `<sha>.html`.
 
