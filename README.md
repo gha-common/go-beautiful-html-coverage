@@ -44,7 +44,7 @@ This GHA expects `cover.out` to be present in the root of your repo at runtime. 
 go test -coverprofile=cover.out ./...
 ```
 
-For examples on how you might do that you can peak at the `go-test-app` [`go-test-app/Makefile`](./Makefile), or some of my other go projects like [`pretender`](https://github.com/kilianc/pretender/blob/main/Makefile#L44-L57) and [`base-go-cli`](https://github.com/kilianc/base-golang-cli/blob/main/Makefile#L76-L92).
+For examples on how you might do that you can peak at [`go-test-app/Makefile`](./Makefile), or some of my other go projects like [`pretender`](https://github.com/kilianc/pretender/blob/main/Makefile#L44-L57) and [`base-go-cli`](https://github.com/kilianc/base-golang-cli/blob/main/Makefile#L76-L92).
 
 Once your test has ran and `cover.out` has been generated, the GHA does the following:
 
