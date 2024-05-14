@@ -29,9 +29,9 @@ jobs:
       - name: Go Beautiful HTML Coverage
         uses: './'
         with:
-          path: go-test-app-01
+          path: go-test-app-01/
 
       - name: Go Beautiful HTML Coverage
         uses: './'
         with:
-          path: go-test-app-02
+          path: go-test-app-02/
