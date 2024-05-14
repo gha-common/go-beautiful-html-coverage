@@ -38,7 +38,8 @@ runs:
           git clean -fdx
           touch index.html
           cp ${GITHUB_ACTION_PATH}/assets/nord.css .
-          git add index.html nord.css
+          cp ${GITHUB_ACTION_PATH}/assets/ln.js .
+          git add index.html nord.css ln.js
           git config user.email "go-coverage-action@github.com"
           git config user.name "go-coverage-action"
           git commit -m "chore: initial commit"
@@ -52,6 +53,7 @@ runs:
         cd go-cover
         mv ../cover.html ${REVISION}.html
         ex -sc '%s/<style>/<style>@import url("nord.css");/' -c 'x' ${REVISION}.html
+        ex -sc '%s/</script>/<script src="ln.js"></script>/' -c 'x' ${REVISION}.html
         git add -f ${REVISION}.html
         git config user.email "go-coverage-action@github.com"
         git config user.name "go-coverage-action"
