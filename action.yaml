@@ -53,7 +53,7 @@ runs:
         cd go-cover
         mv ../cover.html ${REVISION}.html
         ex -sc '%s/<style>/<style>@import url("nord.css");/' -c 'x' ${REVISION}.html
-        ex -sc '%s/</script>/<script src="ln.js"></script>/' -c 'x' ${REVISION}.html
+        ex -sc '%s/<\/script>/<\/script><script src="ln.js"><\/script>/' -c 'x' ${REVISION}.html
         git add -f ${REVISION}.html
         git config user.email "go-coverage-action@github.com"
         git config user.name "go-coverage-action"
