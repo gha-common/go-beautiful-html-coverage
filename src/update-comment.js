@@ -14,7 +14,7 @@ const updateCodeCoverageComment = module.exports = async ({ context, github }, r
 
   const commentBody = [
     '<!-- coverage -->',
-    `### [Code Coverage Report 🔗](https://${context.repo.owner}.github.io/${context.repo.repo}/${revision}.html#file0) for ${revision}`,
+    `### [Code Coverage Report 🔗](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision}) for ${revision}`,
   ]
 
   if (fs.existsSync('cover.txt') === true) {
