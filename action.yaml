@@ -38,8 +38,7 @@ runs:
           git clean -fdx
           touch index.html
         fi
-        cp ${GITHUB_ACTION_PATH}/assets/nord.css .
-        cp ${GITHUB_ACTION_PATH}/assets/ln.js .
+        cp ${GITHUB_ACTION_PATH}/assets/* .
         git add .
         git config user.email "go-coverage-action@github.com"
         git config user.name "go-coverage-action"
