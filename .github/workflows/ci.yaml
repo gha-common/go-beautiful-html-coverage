@@ -24,9 +24,8 @@ jobs:
       - name: Generate Coverage Files
         run: |
           cd go-test-app
-          make cover.txt
-          make cover.html
-          mv cover.* ../
+          make test
+          mv cover.out ../
 
       - name: Go Coverage
         uses: './'

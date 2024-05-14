@@ -12,17 +12,13 @@ const updateCodeCoverageComment = module.exports = async ({ context, github }, r
     return comment.body.startsWith('<!-- coverage -->')
   }) || {}
 
+  const coverageText = fs.readFileSync('cover.txt', 'utf8').split('\n').slice(0, -1)
+  const coverageTextSummary = coverageText[coverageText.length-1].split('\t').pop()
+
   const commentBody = [
     '<!-- coverage -->',
     `### [Code Coverage Report 🔗](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision}) for ${revision}`,
-  ]
-
-  if (fs.existsSync('cover.txt') === true) {
-    const coverageText = fs.readFileSync('cover.txt', 'utf8').split('\n').slice(0, -1)
-    const coverageTextSummary = coverageText[coverageText.length-1].split('\t').pop()
-
-    commentBody.push(
-      '```',
+    '```',
       `Total: ${coverageTextSummary}`,
       '```',
       '<details>',
@@ -32,8 +28,7 @@ const updateCodeCoverageComment = module.exports = async ({ context, github }, r
       ...coverageText,
       '```',
       '</details>',
-    )
-  }
+  ]
 
   const upsertCommentOptions = {
     owner: context.repo.owner,
