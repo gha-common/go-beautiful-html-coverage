@@ -17,6 +17,9 @@ inputs:
   path:
     description: The relative path of your go project. Useful for monorepos and custom folder structures.
     default: './'
+  threshold:
+    description: The minimum % of coverage required.
+    default: '0'
 runs:
   using: composite
   steps:
@@ -69,4 +72,15 @@ runs:
           const script = require(`${process.env.GITHUB_ACTION_PATH}/src/update-comment.js`)
           const revision = '${{ github.event.pull_request.head.sha || github.sha }}'
           const path = '${{ inputs.path }}'
-          await script({ context, github }, path, revision)
+          const threshold = parseFloat('${{ inputs.threshold }}', 10)
+          await script({ context, github, path, revision, threshold })
+
+    - name: Check Coverage Threshold
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ inputs.token }}
+        script: |
+          const script = require(`${process.env.GITHUB_ACTION_PATH}/src/check-threshold.js`)
+          const revision = '${{ github.event.pull_request.head.sha || github.sha }}'
+          const threshold = parseFloat('${{ inputs.threshold }}', 10)
+          await script({ threshold, revision })

@@ -86,6 +86,10 @@ Once your test has ran and `cover.out` has been generated, the GHA does the foll
     # The relative path of your go project. Useful for monorepos and custom folder structures.
     # Default: ./
     path: ''
+
+    # The minimum % of coverage required.
+    # Default: 0
+    threshold: ''
 ```
 
 ## Examples

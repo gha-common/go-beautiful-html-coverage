@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const updateCodeCoverageComment = module.exports = async ({ context, github }, path, revision) => {
+const updateCodeCoverageComment = module.exports = async ({ context, github, path, revision, threshold }) => {
   const comments = await github.rest.issues.listComments({
     owner: context.repo.owner,
     repo: context.repo.repo,
@@ -14,22 +14,39 @@ const updateCodeCoverageComment = module.exports = async ({ context, github }, p
 
   const coverageText = fs.readFileSync(`go-cover/${revision}.txt`, 'utf8').split('\n').slice(0, -1)
   const coverageTextSummary = coverageText[coverageText.length-1].split('\t').pop()
-  const pathText = (path !== './' ? ` for \`${path}/\`` : '').replace('//', '/')
+  const coverage = parseFloat(coverageTextSummary.replace('%', ''), 10)
+  const coverageEmoji = coverage >= threshold ? '' : `<kbd>🔻 ${(coverage - threshold).toFixed(1)}%</kbd> `
+  const pathText = (path !== './' ? ` for <kbd>${path}/</kbd>` : '').replace('//', '/')
 
   const commentBody = [
     `<!-- coverage (${path})-->`,
-    `### [Code Coverage Report 🔗](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision})${pathText} at ${revision}`,
+    `##### ${coverageEmoji}<kbd>[🔗 Code Coverage Report](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision})</kbd>${pathText} at <kbd>${revision}</kbd>`,
     '```',
-      `Total: ${coverageTextSummary}`,
-      '```',
-      '<details>',
-      '<summary>Full coverage report</summary>',
-      '',
-      '```',
-      ...coverageText,
-      '```',
-      '</details>',
+    `📔 Total: ${coverageTextSummary}`,
   ]
+
+  if (threshold > 0) {
+    commentBody.push(
+      `🎯 Threshold: ${threshold}%`,
+    )
+
+    if (coverage >= threshold) {
+      commentBody.push(`✅ ${coverageTextSummary} >= ${threshold}%`)
+    } else {
+      commentBody.push(`❌ ${coverageTextSummary} < ${threshold}%`)
+    }
+  }
+
+  commentBody.push(
+    '```',
+    '<details>',
+    '<summary>Full coverage report</summary>',
+    '',
+    '```',
+    ...coverageText,
+    '```',
+    '</details>',
+  )
 
   const upsertCommentOptions = {
     owner: context.repo.owner,
