@@ -57,7 +57,7 @@ Once your test has ran and `cover.out` has been generated, the GHA does the foll
 ### Screenshots
 
 <br>
-<img width="912" alt="PR Comment" src="https://github.com/gha-common/go-beautiful-html-coverage/assets/385716/99b01c85-f573-44cb-b554-64e9495aa7d1">
+<img width="912" alt="PR Comment" src="https://github.com/gha-common/go-beautiful-html-coverage/assets/385716/30c72ae0-d816-4167-8ba7-d3a3d91e5dad">
 <img width="822" alt="HTML Preview" src="https://github.com/gha-common/go-beautiful-html-coverage/assets/385716/bbfd1ddd-e2d1-4720-8dcb-0cac2890ac23">
 
 > [!NOTE]
