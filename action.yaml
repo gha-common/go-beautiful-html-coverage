@@ -39,7 +39,7 @@ runs:
           touch index.html
         fi
         cp ${GITHUB_ACTION_PATH}/assets/* .
-        ll
+        ls -lah
         git status
         git add .
         git config user.email "go-coverage-action@github.com"
