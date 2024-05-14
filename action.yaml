@@ -42,6 +42,10 @@ runs:
         git add .
         git config user.email "go-coverage-action@github.com"
         git config user.name "go-coverage-action"
+        if git diff --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
         git commit -m "chore: update assets"
         git push origin ${{ inputs.branch }}
 
