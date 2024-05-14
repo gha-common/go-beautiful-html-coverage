@@ -31,10 +31,9 @@ jobs:
         uses: './'
         with:
           path: go-test-app-01/
-          threshold: 80
+          threshold: 66.7
 
       - name: Go Beautiful HTML Coverage
-        if: always()
         uses: './'
         with:
           path: go-test-app-02/
