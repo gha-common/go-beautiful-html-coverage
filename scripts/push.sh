@@ -20,7 +20,7 @@ cp cover.out                     "${cover_dir}/revisions/${REVISION}.out"
 
 echo "mode: set" > incremental.out
 # grep exits with 1 if no lines are found, so we need to ignore that
-grep -F -v -x -f "${GITHUB_WORKSPACE}/go-cover/head/head.out" cover.out >> incremental.out || true
+grep -F -v -x -f "${cover_dir}/head/head.out" cover.out >> incremental.out || true
 go tool cover -html=incremental.out -o "${cover_dir}/revisions/${REVISION}-inc.html"
 go tool cover -func=incremental.out -o "${cover_dir}/revisions/${REVISION}-inc.txt"
 cp incremental.out                     "${cover_dir}/revisions/${REVISION}-inc.out"
