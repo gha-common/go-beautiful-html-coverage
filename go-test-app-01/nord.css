@@ -1,0 +1,83 @@
+:root {
+  --ln-width: 3;
+  --nord-deep-dark: #242931;
+  --nord0: #2e3440;
+  --nord0-pale: rgba(46, 52, 64, 0.3);
+  --nord1: #3b4252;
+  --nord1-pale: rgba(59, 66, 82, 0.3);
+  --nord2: #434c5e;
+  --nord2-pale: rgba(67, 76, 94, 0.3);
+  --nord3: #4c566a;
+  --nord3-pale: rgba(76, 86, 106, 0.3);
+  --nord4: #d8dee9;
+  --nord4-pale: rgba(216, 222, 232, 0.3);
+  --nord5: #e5e9f0;
+  --nord5-pale: rgba(229, 233, 240, 0.3);
+  --nord6: #eceff4;
+  --nord6-pale: rgba(236, 239, 244, 0.3);
+  --nord7: #8fbcbb;
+  --nord7-pale: rgba(143, 188, 187, 0.3);
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord10-pale: rgba(94, 129, 172, 0.3);
+  --nord11: #bf616a;
+  --nord11-pale: rgba(191, 97, 106, 0.3);
+  --nord12: #d08770;
+  --nord12-pale: rgba(208, 135, 112, 0.3);
+  --nord13: #ebcb8b;
+  --nord13-pale: rgba(235, 203, 139, 0.3);
+  --nord14: #a3be8c;
+  --nord14-pale: rgba(163, 190, 140, 0.3);
+  --nord15: #b48ead;
+  --nord15-pale: rgba(180, 140, 173, 0.3);
+}
+
+* {
+  font-family: Menlo, Monaco, source-code-pro, "Ubuntu Mono", "DejaVu sans mono", Consolas, monospace, Menlo, Monaco, "Courier New", monospace;
+  font-weight: normal !important;
+  font-size: 14px;
+}
+
+body {
+  background: var(--nord0) !important;
+  color: var(--nord3) !important;
+}
+
+#topbar {
+  background: var(--nord1) !important;
+  border-color: var(--nord3) !important;
+}
+
+select {
+  background-color: var(--nord-deep-dark);
+  color: var(--nord9);
+  border: 1px solid var(--nord3);
+  border-radius: 3px;
+  padding: 2px;
+}
+
+pre {
+  line-height: 1.4em;
+}
+
+.ln {
+  display: inline-block;
+  min-width: calc(0.48em * (var(--ln-width) + 1));
+  text-align: right;
+  margin-right: 15px;
+  padding-right: 10px;
+  color: var(--nord3);
+}
+
+.cov0, .cov0 .ln   { color: var(--nord11) !important; }
+.cov1, .cov1 .ln   { color: var(--nord13) !important; }
+.cov2, .cov2 .ln   { color: var(--nord14) !important; }
+.cov3, .cov3 .ln   { color: var(--nord14) !important; }
+.cov4, .cov4 .ln   { color: var(--nord14) !important; }
+.cov5, .cov5 .ln   { color: var(--nord14) !important; }
+.cov6, .cov6 .ln   { color: var(--nord14) !important; }
+.cov7, .cov7 .ln   { color: var(--nord14) !important; }
+.cov8, .cov8 .ln   { color: var(--nord14) !important; }
+.cov9, .cov9 .ln   { color: var(--nord14) !important; }
+.cov10, .cov10 .ln { color: var(--nord14) !important; }
