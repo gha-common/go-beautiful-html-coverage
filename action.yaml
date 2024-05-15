@@ -33,35 +33,17 @@ runs:
     - name: Checkout Coverage Branch
       shell: bash
       run: |
-        cd go-cover
-        git fetch origin
-        if git rev-parse --verify origin/${{ inputs.branch }}; then
-          git checkout ${{ inputs.branch }}
-          git pull origin ${{ inputs.branch }}
-        else
-          git checkout --orphan ${{ inputs.branch }}
-          rm .git/index
-          git clean -fdx
-        fi
+        export INPUTS_BRANCH="${{ inputs.branch }}"
+        ${GITHUB_ACTION_PATH}/scripts/pull.sh
 
     - name: Push Coverage
       shell: bash
       run: |
         export REVISION="${{ github.event.pull_request.head.sha || github.sha }}"
-        cd ${{ inputs.path }}
-        go tool cover -func=cover.out -o cover.txt
-        go tool cover -html=cover.out -o cover.html
-        mv cover.html ${GITHUB_WORKSPACE}/go-cover/${REVISION}.html
-        mv cover.txt ${GITHUB_WORKSPACE}/go-cover/${REVISION}.txt
-        cd ${GITHUB_WORKSPACE}/go-cover
-        ex -sc '%s/<style>/<style>@import url("nord.css");/' -c 'x' ${REVISION}.html
-        ex -sc '%s/<\/script>/<\/script><script src="ln.js"><\/script>/' -c 'x' ${REVISION}.html
-        cp ${GITHUB_ACTION_PATH}/assets/* .
-        git add .
-        git config user.email "go-coverage-action@github.com"
-        git config user.name "go-coverage-action"
-        git commit -m "chore: add cover for ${REVISION}" || true
-        git push origin ${{ inputs.branch }}
+        export INPUTS_PATH="${{ inputs.path }}"
+        export INPUTS_BRANCH="${{ inputs.branch }}"
+        export REF_NAME="${{ github.ref_name }}"
+        ${GITHUB_ACTION_PATH}/scripts/push.sh
 
     - name: Post Code Coverage Comment
       if: ${{ github.event_name == 'pull_request' }}
@@ -76,6 +58,7 @@ runs:
           await script({ context, github, path, revision, threshold })
 
     - name: Check Coverage Threshold
+      if: ${{ github.event_name == 'pull_request' }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ inputs.token }}
