@@ -1,4 +1,6 @@
 const fs = require('fs')
+const normalizePath = require('./normalize-path')
+const join = require('path').join
 
 const updateCodeCoverageComment = module.exports = async ({ context, github, path, revision, threshold }) => {
   const comments = await github.rest.issues.listComments({
@@ -8,19 +10,22 @@ const updateCodeCoverageComment = module.exports = async ({ context, github, pat
     per_page: 100
   })
 
+  path = normalizePath(path)
+
   const coverageComment = comments.data.find((comment) => {
     return comment.body.startsWith(`<!-- coverage (${path})-->`)
   }) || {}
 
-  const coverageText = fs.readFileSync(`go-cover/${revision}.txt`, 'utf8').split('\n').slice(0, -1)
+  const coverageText = fs.readFileSync(join('go-cover', path, 'revisions', `${revision}.txt`), 'utf8').split('\n').slice(0, -1)
   const coverageTextSummary = coverageText[coverageText.length-1].split('\t').pop()
   const coverage = parseFloat(coverageTextSummary.replace('%', ''), 10)
   const coverageEmoji = coverage >= threshold ? '' : `<kbd>🔻 ${(coverage - threshold).toFixed(1)}%</kbd> `
-  const pathText = (path !== './' ? ` for <kbd>${path}/</kbd>` : '').replace('//', '/')
+  const pathText = (path !== '' ? ` for <kbd>${path}/</kbd>` : '')
+  const url = `https://${context.repo.owner}.github.io/${join(context.repo.repo, path)}?hash=${revision}`
 
   const commentBody = [
     `<!-- coverage (${path})-->`,
-    `##### ${coverageEmoji}<kbd>[🔗 Code Coverage Report](https://${context.repo.owner}.github.io/${context.repo.repo}/?hash=${revision})</kbd>${pathText} at <kbd>${revision}</kbd>`,
+    `##### ${coverageEmoji}<kbd>[🔗 Code Coverage Report](${url})</kbd>${pathText} at <kbd>${revision}</kbd>`,
     '```',
     `📔 Total: ${coverageTextSummary}`,
   ]

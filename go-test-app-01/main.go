@@ -5,12 +5,16 @@ import (
 	"math/rand"
 )
 
+const side = "right"
+
 func main() {
 	if tossCoin() == "heads" {
 		fmt.Println("Heads")
 	} else {
 		fmt.Println("Tails")
 	}
+
+	fmt.Println("Maybe:", maybe())
 }
 
 func tossCoin() string {
@@ -18,5 +22,13 @@ func tossCoin() string {
 		return "heads"
 	} else {
 		return "tails"
+	}
+}
+
+func maybe() bool {
+	if side == "right" {
+		return true
+	} else {
+		return false
 	}
 }
