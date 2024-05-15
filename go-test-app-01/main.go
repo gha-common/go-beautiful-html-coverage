@@ -5,7 +5,7 @@ import (
 	"math/rand"
 )
 
-const side = "right"
+const side = "left"
 
 func main() {
 	if tossCoin() == "heads" {
