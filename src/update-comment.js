@@ -46,6 +46,7 @@ const updateCodeCoverageComment = module.exports = async ({ context, github, pat
     ...coverageText,
     '```',
     '</details>',
+    `<p align="right"><sup><a href="https://github.com/gha-common/go-beautiful-html-coverage">go-beautiful-html-coverage ↗</a></sup></p>`
   )
 
   const upsertCommentOptions = {
