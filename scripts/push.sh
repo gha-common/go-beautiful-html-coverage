@@ -30,12 +30,12 @@ cd "${cover_dir}"
 # beautify html
 
 for file in "revisions/${REVISION}.html" "revisions/${REVISION}-inc.html"; do
-  ex -sc '%s/<\/title>/<\/title>\n<script src="..\/index.js"><\/script>/' -c 'x' "${file}"
-  ex -sc '%s/<\/title>/<\/title>\n<script src="https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/highlight.js\/11.9.0\/languages\/go.min.js"><\/script>/' -c 'x' "${file}"
-  ex -sc '%s/<\/title>/<\/title>\n<script src="https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/highlight.js\/11.9.0\/highlight.min.js"><\/script>/' -c 'x' "${file}"
-  ex -sc '%s/<\/title>/<\/title>\n<link rel="stylesheet" href="https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/highlight.js\/11.9.0\/styles\/github-dark.min.css" disabled>/' -c 'x' "${file}"
-  ex -sc '%s/<\/title>/<\/title>\n<link rel="stylesheet" href="https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/highlight.js\/11.9.0\/styles\/github.min.css">/' -c 'x' "${file}"
-  ex -sc '%s/<\/title>/<\/title>\n<link rel="stylesheet" href="..\/index.css">/' -c 'x' "${file}"
+  ex -sc '%s/<\/title>/<\/title>\\n<script src="..\/index.js"><\/script>/' -c 'x' "${file}"
+  ex -sc '%s/<\/title>/<\/title>\\n<script src="https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/highlight.js\/11.9.0\/languages\/go.min.js"><\/script>/' -c 'x' "${file}"
+  ex -sc '%s/<\/title>/<\/title>\\n<script src="https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/highlight.js\/11.9.0\/highlight.min.js"><\/script>/' -c 'x' "${file}"
+  ex -sc '%s/<\/title>/<\/title>\\n<link rel="stylesheet" href="https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/highlight.js\/11.9.0\/styles\/github-dark.min.css" disabled>/' -c 'x' "${file}"
+  ex -sc '%s/<\/title>/<\/title>\\n<link rel="stylesheet" href="https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/highlight.js\/11.9.0\/styles\/github.min.css">/' -c 'x' "${file}"
+  ex -sc '%s/<\/title>/<\/title>\\n<link rel="stylesheet" href="..\/index.css">/' -c 'x' "${file}"
 done
 
 # if we are on the main branch, copy files to main.*
