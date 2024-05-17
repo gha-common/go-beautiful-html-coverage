@@ -1,0 +1,163 @@
+:root {
+  --covered: green;
+  --uncovered: #bf616a;
+  --background: #ffffff;
+  --topbar-background: #f6f8fa;
+  --topbar-border: #d0d7de;
+  --topbar-color: #2e3440;
+  --select-background: #d8dee9;
+  --select-border: #d0d7de;
+  --select-color: #2e3440;
+  --gutter-color: #636c76;
+}
+
+:root.dark {
+  --covered: rgb(71, 210, 71);
+  --uncovered: #bf616a;
+  --background: #242931;
+  --topbar-background: #2e3440;
+  --topbar-border: #4c566a;
+  --topbar-color: #d8dee9;
+  --select-background: #242931;
+  --select-border: #4c566a;
+  --select-color: #d8dee9;
+  --gutter-color: #636c76;
+}
+
+* {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  background: var(--background) !important;
+  overflow-y: scroll;
+  display: none;
+}
+
+#topbar {
+  position: sticky;
+  top: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  background: var(--topbar-background);
+  border-color: var(--topbar-border);
+  border-bottom: 1px solid var(--topbar-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#legend {
+  display: flex;
+  align-items: center;
+}
+
+#nav, #legend span {
+  margin-left: 15px;
+  color: var(--topbar-color) !important;
+}
+
+#nav {
+  position: relative;
+  display: inline-block;
+}
+
+#nav::after {
+  content: '▼';
+  position: absolute;
+  right: 1.2em;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.75em;
+}
+
+select {
+  display: block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--select-background);
+  color: var(--select-color);
+  border: 1px solid var(--select-border);
+  border-radius: 3px;
+  padding: 4px 24px 4px 8px;
+}
+
+#legend span {
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+#content {
+  position: relative;
+  padding: 15px 0;
+  line-height: 1.67em;
+}
+
+pre {
+  position: relative;
+  background: transparent !important;
+}
+
+pre .code, pre .coverage {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+pre .coverage {
+  color: transparent !important;
+  background: transparent;
+}
+
+pre .gutter {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  color: var(--gutter-color);
+}
+
+pre .code .gutter {
+  opacity: 0;
+}
+
+pre .gutter div {
+  padding: 0 35px;
+}
+
+pre .editor {
+  background: transparent !important;
+}
+
+.cov0  {
+  color: rgba(0, 0, 0, 0) !important;
+  background-color: color-mix(in srgb, var(--uncovered) 10%, transparent) !important;
+}
+
+.cov0 .ln {
+  color: var(--uncovered) !important;
+  background-color: color-mix(in srgb, var(--uncovered) 10%, transparent) !important;
+}
+
+.cov1, .cov2, .cov3,
+.cov4, .cov5, .cov6,
+.cov7, .cov8, .cov9, .cov10 {
+  color: rgba(0, 0, 0, 0) !important;
+  background-color: color-mix(in srgb, var(--covered) 10%, transparent) !important;
+}
+
+.cov1 .ln, .cov2 .ln, .cov3 .ln,
+.cov4 .ln, .cov5 .ln, .cov6 .ln,
+.cov7 .ln, .cov8 .ln, .cov9 .ln, .cov10 .ln {
+  color: green !important;
+  background-color: color-mix(in srgb, var(--covered) 10%, transparent) !important;
+}
