@@ -39,7 +39,7 @@ html, body {
 body {
   background: var(--background) !important;
   overflow-y: scroll;
-  display: none;
+  opacity: 0;
 }
 
 #topbar {

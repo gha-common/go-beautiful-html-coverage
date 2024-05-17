@@ -1,16 +1,27 @@
 load([
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css",
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css",
-  "../index.css",
+  ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"],
+  ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css", 'disabled'],
+  ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"],
+  ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"],
+  ["../index.css"],
 ]);
 
 document.addEventListener("DOMContentLoaded", main);
+document.documentElement.style.setProperty("opacity", "0");
+
 
 function main () {
   document.querySelectorAll('style').forEach((el) => el.remove());
-  document.body.style.setProperty("display", "block");
+
+  if (!window.hljs) {
+    console.log("Waiting for highlight.js to load...");
+    setTimeout(main, 100);
+    return;
+  }
+
+  document.documentElement.style.setProperty("opacity", "1");
+  document.body.style.setProperty("transition", "all 0.1s ease-in-out");
+  document.body.style.setProperty("opacity", "1");
 
   document.querySelector("#legend").addEventListener("click", (event) => {
     let lightStyle = document.querySelector('link[href*="github.min.css"]');
@@ -105,19 +116,20 @@ function loadScript(src) {
   document.head.appendChild(script);
 }
 
-function loadStyle(src) {
+function loadStyle(src, disabled) {
   let style = document.createElement("link");
   style.rel = "stylesheet";
   style.href = src;
+  style.disabled = disabled === "disabled";
   document.head.appendChild(style);
 }
 
 function load(urls) {
-  for (let url of urls) {
+  for (let [url, disabled] of urls) {
     if (url.endsWith(".js")) {
       loadScript(url);
     } else if (url.endsWith(".css")) {
-      loadStyle(url);
+      loadStyle(url, disabled);
     }
   }
 }
