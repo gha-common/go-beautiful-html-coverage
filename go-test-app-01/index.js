@@ -41,10 +41,16 @@ function main() {
 function configureTheme() {
   let isDark = localStorage.getItem('dark') === 'true'
 
-  document.querySelector('#topbar').innerHTML += `
-    <input type="checkbox" id="switch" ${isDark ? 'checked' : ''}/>
-    <label for="switch"></label>
-  `
+  let switchInput = document.createElement('input')
+  switchInput.type = 'checkbox'
+  switchInput.id = 'switch'
+  switchInput.checked = isDark
+
+  let switchLabel = document.createElement('label')
+  switchLabel.htmlFor = 'switch'
+
+  document.querySelector('#topbar').appendChild(switchInput)
+  document.querySelector('#topbar').appendChild(switchLabel)
 
   if (isDark) {
     toggleDarkMode()
