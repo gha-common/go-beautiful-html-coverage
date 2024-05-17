@@ -1,0 +1,4 @@
+cointoss/main.go:10:	main		75.0%
+cointoss/main.go:20:	tossCoin	66.7%
+cointoss/main.go:28:	maybe		66.7%
+total:			(statements)	70.0%
