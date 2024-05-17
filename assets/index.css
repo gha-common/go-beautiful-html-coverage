@@ -165,6 +165,7 @@ pre .gutter {
   flex-direction: column;
   text-align: right;
   color: var(--gutter-color);
+  min-width: 72px;
 }
 
 pre .code .gutter {
@@ -172,7 +173,7 @@ pre .code .gutter {
 }
 
 pre .gutter div {
-  padding: 0 35px;
+  padding: 0 16px;
 }
 
 pre .editor {
