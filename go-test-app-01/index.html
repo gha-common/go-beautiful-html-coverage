@@ -1,10 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Waiting for GitHub Pages Deployment</title>
     <style>
+      * {
+        font-family: Menlo, Monaco, source-code-pro, 'Ubuntu Mono',
+          'DejaVu sans mono', Consolas, monospace, Menlo, Monaco, 'Courier New',
+          monospace;
+      }
+
       body {
+        background: #2e3440;
+        color: #4c566a;
         height: 100vh;
         margin: 0;
         display: flex;
@@ -26,48 +34,51 @@
         font-size: 12px;
       }
       @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
     </style>
     <script>
       function getHashFromQueryString() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get("hash");
+        const params = new URLSearchParams(window.location.search)
+        return params.get('hash')
       }
 
       async function checkFileExists(url) {
         try {
-          const response = await fetch(url, { method: "HEAD" });
-          return response.ok;
+          const response = await fetch(url, { method: 'HEAD' })
+          return response.ok
         } catch (error) {
-          return false;
+          return false
         }
       }
 
       async function waitForFileToExist(url, interval = 2000) {
         while (true) {
           if (await checkFileExists(url)) {
-            return true;
+            return true
           }
-          await new Promise((resolve) => setTimeout(resolve, interval));
+          await new Promise((resolve) => setTimeout(resolve, interval))
         }
       }
 
       async function loadContent() {
-        const spinner = document.getElementById("spinner");
-        const hash = getHashFromQueryString();
-        const fileUrl = `revisions/${hash}.html`;
+        const spinner = document.getElementById('spinner')
+        const hash = getHashFromQueryString()
+        const fileUrl = `revisions/${hash}.html`
 
-        spinner.style.display = "block";
+        spinner.style.display = 'block'
 
-        await waitForFileToExist(fileUrl);
+        await waitForFileToExist(fileUrl)
 
-        window.location.href = fileUrl;
+        window.location.href = fileUrl
       }
 
-      document.addEventListener("DOMContentLoaded", loadContent);
-
+      document.addEventListener('DOMContentLoaded', loadContent)
     </script>
   </head>
   <body>
