@@ -34,12 +34,11 @@
 
 body {
   min-height: 100vh;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 body {
   background: var(--background) !important;
-  overflow-y: scroll;
   transition: all 0.1s ease-in-out;
 }
 
@@ -140,7 +139,6 @@ input:checked + label:after {
 }
 
 #content {
-  position: relative;
   padding: 15px 0;
   line-height: 1.67em;
 }

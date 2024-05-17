@@ -29,6 +29,8 @@ function main() {
     return
   }
 
+
+  configureSelectFix()
   configureTheme()
   configureCodeBlocks()
   highlight('.code .editor')
@@ -36,6 +38,14 @@ function main() {
 
   // setup complete, restore the page visibility
   document.documentElement.style.setProperty('opacity', '1')
+}
+
+function configureSelectFix() {
+  document.getElementById('files').addEventListener('change', (e) => {
+    document.querySelectorAll('.file').forEach((el) => el.style.display = 'none')
+    window.scrollTo(0, 0)
+    setTimeout(() => document.getElementById(e.target.value).style.display = 'block', 1)
+  })
 }
 
 function configureTheme() {
@@ -88,15 +98,16 @@ function configureCodeBlocks() {
     editor.innerHTML = pre.innerHTML
 
     let code = document.createElement('div')
-    code.classList.add('code')
-    code.style.setProperty('top', '0')
-    code.style.setProperty('left', '0')
-    code.style.setProperty('position', 'absolute')
+    code.classList = 'code'
     code.appendChild(gutter)
     code.appendChild(editor)
 
     let coverage = code.cloneNode(true)
     coverage.classList = 'coverage'
+
+    code.style.setProperty('position', 'absolute')
+    code.style.setProperty('top', '0')
+    code.style.setProperty('left', '0')
 
     pre.innerHTML = ''
     pre.appendChild(coverage)
