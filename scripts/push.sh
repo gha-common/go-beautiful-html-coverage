@@ -30,7 +30,7 @@ cd "${cover_dir}"
 # beautify html
 
 for file in "revisions/${REVISION}.html" "revisions/${REVISION}-inc.html"; do
-  ex -sc '%s/<\/title>/<\/title><script src="..\/index.js"><\/script>/' -c 'x' "${file}"
+  ex -sc '%s/<\/style>/<\/style><script src="..\/index.js"><\/script>/' -c 'x' "${file}"
 done
 
 # if we are on the main branch, copy files to main.*
