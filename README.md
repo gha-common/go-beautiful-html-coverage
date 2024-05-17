@@ -57,8 +57,10 @@ Once your test has ran and `cover.out` has been generated, the GHA does the foll
 ### Screenshots
 
 <br>
-<img width="912" alt="PR Comment" src="https://github.com/gha-common/go-beautiful-html-coverage/assets/385716/30c72ae0-d816-4167-8ba7-d3a3d91e5dad">
-<img width="822" alt="HTML Preview" src="https://github.com/gha-common/go-beautiful-html-coverage/assets/385716/bbfd1ddd-e2d1-4720-8dcb-0cac2890ac23">
+<img alt="PR Comment" src="https://github.com/gha-common/go-beautiful-html-coverage/assets/385716/e155c0aa-14ec-4740-9824-f00399e6b170">
+<img alt="HTML Preview (Dark)" src="https://github.com/gha-common/go-beautiful-html-coverage/assets/385716/154f0af6-f5a9-4eb5-bc3a-721bab2e4263">
+<img alt="HTML Preview (Light)" src="https://github.com/gha-common/go-beautiful-html-coverage/assets/385716/11256803-59c5-45c4-8ad0-e83ac3374388">
+<br><br>
 
 > [!NOTE]
 > In order for the HTML preview links to work, configure `GitHub Pages` in your target repo *(`Settings > Pages`)* to `Deploy from a branch` and pick your target branch, which is, by default, `cover`.
