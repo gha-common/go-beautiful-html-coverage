@@ -1,0 +1,7 @@
+mode: set
+cointoss/main.go:11.27,13.3 1 0
+cointoss/main.go:13.8,15.3 1 1
+cointoss/main.go:21.23,23.3 1 0
+cointoss/main.go:23.8,25.3 1 1
+cointoss/main.go:29.21,31.3 1 0
+cointoss/main.go:31.8,33.3 1 1
