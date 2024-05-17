@@ -29,9 +29,11 @@ cd "${cover_dir}"
 
 # beautify html
 
+# this is useful for browser caching
+hash=$(cat index.css index.js | md5sum | awk '{print $1}')
+
 for file in "revisions/${REVISION}.html" "revisions/${REVISION}-inc.html"; do
-  ex -sc '%s/<style>/<style>@import url("..\/nord.css");/'             -c 'x' "${file}"
-  ex -sc '%s/<\/script>/<\/script><script src="..\/index.js"><\/script>/' -c 'x' "${file}"
+  ex -sc '%s/<\/style>/<\/style><script src="..\/index.js?'"${hash}"'"><\/script>/' -c 'x' "${file}"
 done
 
 # if we are on the main branch, copy files to main.*
