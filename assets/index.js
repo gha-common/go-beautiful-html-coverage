@@ -5,7 +5,7 @@ let loading = load([
   "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",
-  "../index.css",
+  "../index.css?" + document.querySelector('script[src*="index.js"]').src.split('?').pop(),
 ]);
 
 // remove all default inline styles
@@ -184,9 +184,9 @@ function load(urls) {
   }
 
   for (let url of urls) {
-    if (url.endsWith('.js')) {
+    if (url.includes('.js')) {
       loadScript(url, state)
-    } else if (url.endsWith('.css')) {
+    } else if (url.includes('.css')) {
       loadStyle(url, state)
     }
   }
