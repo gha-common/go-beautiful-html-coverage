@@ -29,7 +29,7 @@ function main() {
     return
   }
 
-
+  configureIncrementalButton()
   configureSelectFix()
   configureTheme()
   configureCodeBlocks()
@@ -38,6 +38,31 @@ function main() {
 
   // setup complete, restore the page visibility
   document.documentElement.style.setProperty('opacity', '1')
+}
+
+function configureIncrementalButton() {
+  let url = window.location.href
+  let isInc = url.includes('-inc.html')
+
+  let link = document.createElement('a')
+  link.classList = 'incremental'
+  link.classList.add('hljs-selector-id')
+
+  if (isInc) {
+    link.title = 'Toggle to absolute coverage'
+    link.href = url.replace('-inc.html', '.html')
+  } else {
+    link.title = 'Toggle to incremental coverage'
+    link.href = url.replace('.html', '-inc.html')
+  }
+
+  link.innerHTML = `
+    <span style="color: var(--covered);">↑</span>
+    <span style="color: var(--uncovered);">↓</span>
+    <span style="margin-left: 2px;">${isInc ? 'inc' : 'abs'}</span>
+  `
+
+  document.querySelector('#topbar').appendChild(link)
 }
 
 function configureSelectFix() {
