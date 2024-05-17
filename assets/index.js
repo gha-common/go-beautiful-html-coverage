@@ -1,3 +1,11 @@
+load([
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css",
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css",
+  "../index.css",
+]);
+
 document.addEventListener("DOMContentLoaded", main);
 
 function main () {
@@ -88,4 +96,28 @@ function addLineNumbers() {
 
     gutter.innerHTML = gutterHtml;
   });
+}
+
+function loadScript(src) {
+  let script = document.createElement("script");
+  script.src = src;
+  script.async = false;
+  document.head.appendChild(script);
+}
+
+function loadStyle(src) {
+  let style = document.createElement("link");
+  style.rel = "stylesheet";
+  style.href = src;
+  document.head.appendChild(style);
+}
+
+function load(urls) {
+  for (let url of urls) {
+    if (url.endsWith(".js")) {
+      loadScript(url);
+    } else if (url.endsWith(".css")) {
+      loadStyle(url);
+    }
+  }
 }
