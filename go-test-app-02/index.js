@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", main);
 
 function main () {
+  document.querySelectorAll('style').forEach((el) => el.remove());
   document.body.style.setProperty("display", "block");
 
   document.querySelector("#legend").addEventListener("click", (event) => {
