@@ -184,9 +184,9 @@ function load(urls) {
   }
 
   for (let url of urls) {
-    if (url.includes('.js')) {
+    if (url.endsWith('.js')) {
       loadScript(url, state)
-    } else if (url.includes('.css')) {
+    } else {
       loadStyle(url, state)
     }
   }
