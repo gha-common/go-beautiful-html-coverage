@@ -1,135 +1,178 @@
-load([
-  ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"],
-  ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css", 'disabled'],
-  ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"],
-  ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"],
-  ["../index.css"],
+// hide the page until fully setup
+document.documentElement.style.setProperty('opacity', '0')
+
+let loading = load([
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css",
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css",
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",
+  "../index.css",
 ]);
 
-document.addEventListener("DOMContentLoaded", main);
-document.documentElement.style.setProperty("opacity", "0");
+// remove all default inline styles
+document.querySelectorAll('style').forEach((el) => el.remove())
 
+// wait for the page to fully load
+document.addEventListener('DOMContentLoaded', main)
 
-function main () {
-  document.querySelectorAll('style').forEach((el) => el.remove());
-
+function main() {
+  // wait for highlight.js to load
   if (!window.hljs) {
-    console.log("Waiting for highlight.js to load...");
-    setTimeout(main, 100);
-    return;
+    console.log('loading: waiting for highlight.js to load...')
+    setTimeout(main, 100)
+    return
   }
 
-  document.documentElement.style.setProperty("opacity", "1");
-  document.body.style.setProperty("transition", "all 0.1s ease-in-out");
-  document.body.style.setProperty("opacity", "1");
+  // wait for all assets to load
+  if (!loading.isDone()) {
+    console.log('loading: waiting for assets to load...')
+    setTimeout(main, 100)
+    return
+  }
 
-  document.querySelector("#legend").addEventListener("click", (event) => {
-    let lightStyle = document.querySelector('link[href*="github.min.css"]');
-    let darkStyle = document.querySelector('link[href*="github-dark.min.css"]');
+  configureTheme()
+  configureCodeBlocks()
+  highlight('.code .editor')
+  addLineNumbers()
 
-    document.documentElement.classList.toggle("dark");
-
-    if (document.documentElement.classList.contains("dark")) {
-      lightStyle.setAttribute("disabled", "disabled");
-      darkStyle.removeAttribute("disabled");
-    } else {
-      lightStyle.removeAttribute("disabled");
-      darkStyle.setAttribute("disabled", "disabled");
-    }
-  });
-
-  let pres = Array.from(document.querySelectorAll("#content pre"));
-  let clones = [];
-
-  pres.forEach((pre) => {
-    let gutter = document.createElement("div");
-    gutter.classList.add("gutter");
-
-    let editor = document.createElement("div");
-    editor.classList.add("editor");
-    editor.innerHTML = pre.innerHTML;
-
-    let code = document.createElement("div");
-    code.classList.add("code");
-    code.style.setProperty("top", "0");
-    code.style.setProperty("left", "0");
-    code.style.setProperty("position", "absolute");
-    code.appendChild(gutter);
-    code.appendChild(editor);
-
-    let coverage = code.cloneNode(true);
-    coverage.classList = "coverage";
-
-    pre.innerHTML = "";
-    pre.appendChild(coverage);
-    pre.appendChild(code);
-  });
-
-  highlight();
-  addLineNumbers();
+  // setup complete, restore the page visibility
+  document.documentElement.style.setProperty('opacity', '1')
 }
 
-function highlight() {
-  hljs.configure({ cssSelector: ".code .editor" });
-  hljs.highlightAll();
+function configureTheme() {
+  let isDark = localStorage.getItem('dark') === 'true'
+
+  document.querySelector('#topbar').innerHTML += `
+    <input type="checkbox" id="switch" ${isDark ? 'checked' : ''}/>
+    <label for="switch"></label>
+  `
+
+  if (isDark) {
+    toggleDarkMode()
+  }
+
+  document.querySelector('#switch').addEventListener('click', toggleDarkMode)
+}
+
+function toggleDarkMode() {
+  let lightStyle = document.querySelector('link[href*="github.min.css"]')
+  let darkStyle = document.querySelector('link[href*="github-dark.min.css"]')
+
+  document.documentElement.classList.toggle('dark')
+
+  if (document.documentElement.classList.contains('dark')) {
+    localStorage.setItem('dark', 'true')
+    lightStyle.setAttribute('disabled', 'disabled')
+    darkStyle.removeAttribute('disabled')
+  } else {
+    localStorage.setItem('dark', 'false')
+    lightStyle.removeAttribute('disabled')
+    darkStyle.setAttribute('disabled', 'disabled')
+  }
+}
+
+function configureCodeBlocks() {
+  let pres = Array.from(document.querySelectorAll('#content pre'))
+
+  pres.forEach((pre) => {
+    let gutter = document.createElement('div')
+    gutter.classList.add('gutter')
+
+    let editor = document.createElement('div')
+    editor.classList.add('editor')
+    editor.innerHTML = pre.innerHTML
+
+    let code = document.createElement('div')
+    code.classList.add('code')
+    code.style.setProperty('top', '0')
+    code.style.setProperty('left', '0')
+    code.style.setProperty('position', 'absolute')
+    code.appendChild(gutter)
+    code.appendChild(editor)
+
+    let coverage = code.cloneNode(true)
+    coverage.classList = 'coverage'
+
+    pre.innerHTML = ''
+    pre.appendChild(coverage)
+    pre.appendChild(code)
+  })
+}
+
+function highlight(cssSelector) {
+  hljs.configure({ cssSelector, ignoreUnescapedHTML: true })
+  hljs.highlightAll()
 }
 
 function addLineNumbers() {
-  let containers = Array.from(document.querySelectorAll("#content pre > div"));
+  let containers = Array.from(document.querySelectorAll('#content pre > div'))
 
   containers.forEach((container) => {
-    let gutter = container.querySelector(".gutter");
-    let editor = container.querySelector(".editor");
-    let code = editor.innerHTML.replaceAll("    ", "  ");
-    let lines = code.split("\n");
-    let linesCount = lines.length;
-    let gutterHtml = "";
+    let gutter = container.querySelector('.gutter')
+    let editor = container.querySelector('.editor')
+    let code = editor.innerHTML.replaceAll('    ', '  ')
+    let lines = code.split('\n')
+    let linesCount = lines.length
+    let gutterHtml = ''
 
     editor.innerHTML = lines
       .map((line) => `<span class="line-start"></span>${line}`)
-      .join("\n");
+      .join('\n')
 
-    let lineStarts = Array.from(editor.querySelectorAll(".line-start"));
+    let lineStarts = Array.from(editor.querySelectorAll('.line-start'))
 
     for (let i = 0; i < linesCount; i++) {
       let backgroundColor = window.getComputedStyle(
         lineStarts[i].parentElement,
-      ).backgroundColor;
-      let textColor = backgroundColor.replace(" / 0.1", " / 1");
+      ).backgroundColor
+      let textColor = backgroundColor.replace(' / 0.1', ' / 1')
 
-      if (textColor === "rgba(0, 0, 0, 0)") {
-        gutterHtml += `<div>${i + 1}</div>`;
+      if (textColor === 'rgba(0, 0, 0, 0)') {
+        gutterHtml += `<div>${i + 1}</div>`
       } else {
-        gutterHtml += `<div style="background-color: ${backgroundColor}; color: ${textColor};">${i + 1}</div>`;
+        gutterHtml += `<div style="background-color: ${backgroundColor}; color: ${textColor};">${i + 1}</div>`
       }
-
     }
 
-    gutter.innerHTML = gutterHtml;
-  });
+    gutter.innerHTML = gutterHtml
+  })
 }
 
-function loadScript(src) {
-  let script = document.createElement("script");
-  script.src = src;
-  script.async = false;
-  document.head.appendChild(script);
+function loadScript(src, state) {
+  let script = document.createElement('script')
+  script.src = src
+  script.async = true
+  script.onload = () => {
+    console.info(`loaded: ${src}`)
+    state.loaded++
+  }
+  document.head.appendChild(script)
 }
 
-function loadStyle(src, disabled) {
-  let style = document.createElement("link");
-  style.rel = "stylesheet";
-  style.href = src;
-  style.disabled = disabled === "disabled";
-  document.head.appendChild(style);
+function loadStyle(src, state) {
+  let style = document.createElement('link')
+  style.rel = 'stylesheet'
+  style.href = src
+  style.async = true
+  style.onload = () => {
+    console.info(`loaded: ${src}`)
+    state.loaded++
+  }
+  document.head.appendChild(style)
 }
 
 function load(urls) {
-  for (let [url, disabled] of urls) {
-    if (url.endsWith(".js")) {
-      loadScript(url);
-    } else if (url.endsWith(".css")) {
-      loadStyle(url, disabled);
+  let state = {
+    loaded: 0,
+    isDone: () => state.loaded === urls.length
+  }
+
+  for (let url of urls) {
+    if (url.endsWith('.js')) {
+      loadScript(url, state)
+    } else if (url.endsWith('.css')) {
+      loadStyle(url, state)
     }
   }
+
+  return state
 }
