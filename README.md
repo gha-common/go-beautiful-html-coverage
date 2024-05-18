@@ -3,6 +3,7 @@
 
 A GitHub Action to track code coverage in your pull requests, with a beautiful HTML preview, for free.
 
+<a href="https://www.buymeacoffee.com/kilianciuffolo" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 ## Usage
 
 To use this action simply add it to your pre-existent ci workflow. A bare minimal example might look like this:
