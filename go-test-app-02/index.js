@@ -8,9 +8,6 @@ let loading = load([
   "../index.css?" + document.querySelector('script[src*="index.js"]').src.split('?').pop(),
 ]);
 
-// remove all default inline styles
-document.querySelectorAll('style').forEach((el) => el.remove())
-
 // wait for the page to fully load
 document.addEventListener('DOMContentLoaded', main)
 
@@ -66,11 +63,15 @@ function configureIncrementalButton() {
 }
 
 function configureSelectFix() {
-  document.getElementById('files').addEventListener('change', (e) => {
+  let files = document.getElementById('files')
+
+  files.addEventListener('change', (e) => {
     document.querySelectorAll('.file').forEach((el) => el.style.display = 'none')
     window.scrollTo(0, 0)
     setTimeout(() => document.getElementById(e.target.value).style.display = 'block', 1)
   })
+
+  files.dispatchEvent(new Event('change'))
 }
 
 function configureTheme() {
