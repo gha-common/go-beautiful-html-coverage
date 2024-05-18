@@ -14,7 +14,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">cointoss/main.go (70.0%)</option>
+				<option value="file0">cointoss/main.go (50.0%)</option>
 				
 				</select>
 			</div>
@@ -37,30 +37,30 @@ import (
 
 const side = "right"
 
-func main() <span class="cov8" title="1">{
-        if tossCoin() == "heads" </span><span class="cov8" title="1">{
+func main() {
+        if tossCoin() == "heads" <span class="cov8" title="1">{
                 fmt.Println("Heads")
         }</span> else<span class="cov0" title="0"> {
                 fmt.Println("Tails")
         }</span>
 
-        <span class="cov8" title="1">fmt.Println("Maybe:", maybe())</span>
+        fmt.Println("Maybe:", maybe())
 }
 
-func tossCoin() string <span class="cov8" title="1">{
-        if rand.Intn(2) == 0 </span><span class="cov8" title="1">{
+func tossCoin() string {
+        if rand.Intn(2) == 0 <span class="cov8" title="1">{
                 return "heads"
         }</span> else<span class="cov0" title="0"> {
                 return "tails"
         }</span>
 }
 
-func maybe() bool <span class="cov8" title="1">{
-        if side == "right" </span><span class="cov8" title="1">{
+func maybe() bool {
+        if side == "right" {
                 return true
-        }</span> else<span class="cov0" title="0"> {
+        } else {
                 return false
-        }</span>
+        }
 }
 </pre>
 		
