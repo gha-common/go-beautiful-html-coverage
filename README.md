@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD041 MD033 -->
 # `go-beautiful-html-coverage`
 
-A GitHub Action to track code coverage in your pull requests, with a beautiful HTML preview, for free.
+A GitHub Action to track code coverage in your pull requests, with [a beautiful HTML preview ↗](https://kilianc.github.io/pretender/head/head.html#file0), for free.
 
 ## Usage
 
