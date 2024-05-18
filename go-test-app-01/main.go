@@ -14,6 +14,8 @@ func main() {
 		fmt.Println("Tails")
 	}
 
+	printColor("red")
+
 	fmt.Println("Maybe:", maybe())
 }
 
@@ -30,5 +32,18 @@ func maybe() bool {
 		return true
 	} else {
 		return false
+	}
+}
+
+func printColor(color string) {
+	switch color {
+	case "red":
+		fmt.Println("Red")
+	case "blue":
+		fmt.Println("Blue")
+	case "green":
+		fmt.Println("Green")
+	default:
+		fmt.Println("Unknown color")
 	}
 }
