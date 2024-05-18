@@ -68,7 +68,7 @@ function configureSelectFix() {
   files.addEventListener('change', (e) => {
     document.querySelectorAll('.file').forEach((el) => el.style.display = 'none')
     window.scrollTo(0, 0)
-    setTimeout(() => document.getElementById(e.target.value).style.display = 'block', 1)
+    window.requestAnimationFrame(() => document.getElementById(e.target.value).style.display = 'block')
   })
 
   files.dispatchEvent(new Event('change'))
