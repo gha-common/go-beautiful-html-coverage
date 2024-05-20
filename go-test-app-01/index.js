@@ -119,10 +119,7 @@ function configureFileSelect() {
     let scrollUp = (times) => {
       if (window.scrollY === 0 && times > 3) return
       window.scrollTo(0, 0)
-      window.requestAnimationFrame(() => {
-        console.log(`requestAnimationFrame: ${times}`, window.scrollY)
-        scrollUp(times + 1)
-      })
+      window.requestAnimationFrame(() => scrollUp(times + 1))
     }
 
     scrollUp(1)
@@ -130,10 +127,6 @@ function configureFileSelect() {
 
   files.value = selected
   files.dispatchEvent(new Event('change'))
-}
-
-window.onscroll = function () {
-  console.log(window.scrollY)
 }
 
 function addThemeButton() {
