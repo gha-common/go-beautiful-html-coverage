@@ -100,14 +100,17 @@ function addIncrementalButton() {
 }
 
 function configureFileSelect() {
+  let selected = document.location.hash.slice(1)
   let files = document.getElementById('files')
 
   files.addEventListener('change', (e) => {
+    document.location.hash = e.target.value
     document.querySelectorAll('.file').forEach((el) => (el.style.display = 'none'))
     window.scrollTo(0, 0)
     window.requestAnimationFrame(() => (document.getElementById(e.target.value).style.display = 'block'))
   })
 
+  files.value = selected
   files.dispatchEvent(new Event('change'))
 }
 
@@ -183,11 +186,12 @@ function configureSyntaxHighlight(cssSelector) {
 }
 
 function addLineNumbers() {
-  let containers = Array.from(document.querySelectorAll('#content pre > div.coverage'))
+  let pres = Array.from(document.querySelectorAll('#content pre'))
 
-  containers.forEach((container) => {
-    let gutter = container.querySelector('.gutter')
-    let editor = container.querySelector('.editor')
+  pres.forEach((pre) => {
+    let code = pre.querySelector('.code')
+    let gutter = code.querySelector('.gutter')
+    let editor = code.querySelector('.editor')
     let lines = editor.innerHTML.split('\n')
     let gutterHtml = ''
 
@@ -237,7 +241,7 @@ function addLineNumbers() {
     gutter.innerHTML = gutterHtml
 
     // add line numbers to the coverage gutter
-    document.querySelector('#content pre > div.code > .gutter').innerHTML = gutterHtml
+    pre.querySelector('.coverage .gutter').innerHTML = gutterHtml
   })
 }
 

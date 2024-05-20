@@ -9,14 +9,17 @@ const side = "right"
 
 func main() {
 	if tossCoin() == "heads" {
+
 		fmt.Println("Heads")
 	} else {
-		fmt.Println("Tails")
+		fmt.Println(`
+															Tails`)
 	}
 
 	printColor("red")
 
 	fmt.Println("Maybe:", maybe())
+	fmt.Println("Foo:", foo())
 }
 
 func tossCoin() string {
