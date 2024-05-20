@@ -10,16 +10,13 @@ const side = "right"
 func main() {
 	if tossCoin() == "heads" {
 
-		fmt.Println("Heads")
-	} else {
-		fmt.Println(`
-															Tails`)
-	}
+
+	 												fmt.Println("Heads") } else { fmt.Println(`
+															Tails`) }
 
 	printColor("red")
 
 	fmt.Println("Maybe:", maybe())
-	fmt.Println("Foo:", foo())
 }
 
 func tossCoin() string {
@@ -40,13 +37,9 @@ func maybe() bool {
 
 func printColor(color string) {
 	switch color {
-	case "red":
-		fmt.Println("Red")
-	case "blue":
-		fmt.Println("Blue")
-	case "green":
-		fmt.Println("Green")
-	default:
-		fmt.Println("Unknown color")
+	case "red": fmt.Println("Red")
+	case "blue": fmt.Println("Blue")
+	case "green": fmt.Println("Green")
+	default: fmt.Println("Unknown color")
 	}
 }
