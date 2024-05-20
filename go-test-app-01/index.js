@@ -197,7 +197,7 @@ function addLineNumbers() {
   let pres = Array.from(document.querySelectorAll('#content pre'))
 
   pres.forEach((pre) => {
-    let code = pre.querySelector('.code')
+    let code = pre.querySelector('.coverage')
     let gutter = code.querySelector('.gutter')
     let editor = code.querySelector('.editor')
     let lines = editor.innerHTML.split('\n')
@@ -237,6 +237,7 @@ function addLineNumbers() {
         continue
       }
 
+      console.log({spansInLine})
       let classes = new Set(spansInLine.map((el) => el.classList[1]))
       let className = classes.size > 1 ? 'cov-mixed' : classes.values().next().value || ''
 
@@ -248,8 +249,8 @@ function addLineNumbers() {
     gutterHtml += `<div class="ln">${lineNumber}</div>`
     gutter.innerHTML = gutterHtml
 
-    // add line numbers to the coverage gutter
-    pre.querySelector('.coverage .gutter').innerHTML = gutterHtml
+    // add line numbers to the code gutter
+    pre.querySelector('.code .gutter').innerHTML = gutterHtml
   })
 }
 

@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>cointoss: Go Coverage Report</title>
+		<script src="../index.js?2c56bfd79f08252dcf2a285921584324"></script>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">cointoss/foo.go (100.0%)</option>
+				
+				<option value="file1">cointoss/main.go (62.5%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package main
+
+func foo() string <span class="cov8" title="1">{
+        return "foo"
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package main
+
+import (
+        "fmt"
+        "math/rand"
+)
+
+const side = "right"
+
+func main() {
+        if tossCoin() == "heads" <span class="cov8" title="1">{
+
+                fmt.Println("Heads")
+        }</span> else<span class="cov0" title="0"> {
+                fmt.Println(`
+                                                                                                                        Tails`)
+        }</span>
+
+        <span class="cov8" title="1">printColor("red")
+
+        fmt.Println("Maybe:", maybe())
+        fmt.Println("Foo:", foo())</span>
+}
+
+func tossCoin() string <span class="cov8" title="1">{
+        if rand.Intn(2) == 0 </span><span class="cov8" title="1">{
+                return "heads"
+        }</span> else<span class="cov0" title="0"> {
+                return "tails"
+        }</span>
+}
+
+func maybe() bool <span class="cov8" title="1">{
+        if side == "right" </span><span class="cov8" title="1">{
+                return true
+        }</span> else<span class="cov0" title="0"> {
+                return false
+        }</span>
+}
+
+func printColor(color string) <span class="cov8" title="1">{
+        switch color </span>{
+        case "red":<span class="cov8" title="1">
+                fmt.Println("Red")</span>
+        case "blue":<span class="cov0" title="0">
+                fmt.Println("Blue")</span>
+        case "green":<span class="cov0" title="0">
+                fmt.Println("Green")</span>
+        default:<span class="cov0" title="0">
+                fmt.Println("Unknown color")</span>
+        }
+}
+</pre>
+		
+		</div>
+	</body>
+</html>
