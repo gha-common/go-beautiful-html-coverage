@@ -200,7 +200,6 @@ body {
     .gutter {
       display: flex;
       flex-direction: column;
-      /* min-width: 72px; */
       color: var(--gutter-color);
 
       .ln {
