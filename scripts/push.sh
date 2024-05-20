@@ -31,7 +31,7 @@ cd "${cover_dir}"
 # prepare assets
 
 cp "${GITHUB_ACTION_PATH}"/assets/* .
-./"${GITHUB_ACTION_PATH}"/scripts/beautify-html.sh
+"${GITHUB_ACTION_PATH}"/scripts/beautify-html.sh
 
 # if we are on the main branch, copy files to head.*
 
