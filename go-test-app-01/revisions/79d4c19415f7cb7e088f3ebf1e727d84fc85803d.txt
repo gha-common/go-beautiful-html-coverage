@@ -1,0 +1,6 @@
+cointoss/foo.go:3:	foo		0.0%
+cointoss/main.go:10:	main		80.0%
+cointoss/main.go:22:	tossCoin	66.7%
+cointoss/main.go:30:	maybe		66.7%
+cointoss/main.go:38:	printColor	40.0%
+total:			(statements)	58.8%
