@@ -81,6 +81,7 @@ body {
       transform: translateY(-50%);
       pointer-events: none;
       font-size: 0.75em;
+      color: var(--select-color);
     }
 
     select {
