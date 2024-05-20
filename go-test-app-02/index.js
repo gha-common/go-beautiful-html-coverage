@@ -104,6 +104,14 @@ function configureFileSelect() {
   let files = document.getElementById('files')
 
   files.addEventListener('change', (e) => {
+    let el = document.getElementById(e.target.value)
+
+    if (!el) {
+      files.value = 'file0'
+      files.dispatchEvent(new Event('change'))
+      return
+    }
+
     document.location.hash = e.target.value
     document.querySelectorAll('.file').forEach((el) => (el.style.display = 'none'))
     window.scrollTo(0, 0)
