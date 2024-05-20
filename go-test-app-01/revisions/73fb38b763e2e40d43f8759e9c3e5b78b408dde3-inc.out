@@ -1,6 +1,5 @@
 mode: set
 cointoss/foo.go:3.19,5.2 1 1
-cointoss/main.go:10.13,11.27 1 1
 cointoss/main.go:11.27,14.37 1 1
 cointoss/main.go:14.42,15.25 1 0
 cointoss/main.go:17.2,20.28 3 1
