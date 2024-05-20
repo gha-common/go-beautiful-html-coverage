@@ -34,6 +34,7 @@
   font-size: 12px;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -189,12 +190,13 @@ body {
       .editor {
         .cov {
           display: inline-block;
-          border-width: 0px 4px;
+          border-width: 0 4px;
           border-style: solid;
           border-radius: 2px;
           border-color: transparent;
           color: transparent;
-          transform: translate(-4px);
+          margin-left: -8px;
+          transform: translateX(4px);
         }
       }
     }
