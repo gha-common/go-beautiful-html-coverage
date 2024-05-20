@@ -1,0 +1,16 @@
+mode: set
+cointoss/foo.go:3.19,5.2 1 1
+cointoss/main.go:11.27,14.3 1 1
+cointoss/main.go:14.8,17.3 1 0
+cointoss/main.go:19.2,22.28 3 1
+cointoss/main.go:25.24,26.23 1 1
+cointoss/main.go:26.23,28.3 1 1
+cointoss/main.go:28.8,30.3 1 0
+cointoss/main.go:33.19,34.21 1 1
+cointoss/main.go:34.21,36.3 1 1
+cointoss/main.go:36.8,38.3 1 0
+cointoss/main.go:41.31,42.15 1 1
+cointoss/main.go:43.13,44.21 1 1
+cointoss/main.go:45.14,46.22 1 0
+cointoss/main.go:47.15,48.23 1 0
+cointoss/main.go:49.10,50.31 1 0
