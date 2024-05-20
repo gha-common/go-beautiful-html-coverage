@@ -1,5 +1,6 @@
 <!-- markdownlint-disable MD041 MD033 -->
 # `go-beautiful-html-coverage`
+[![Mentioned in Awesome Go](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/avelino/awesome-go)
 
 A GitHub Action to track code coverage in your pull requests, with [a beautiful HTML preview ↗](https://kilianc.github.io/pretender/head/head.html#file0), for free.
 
