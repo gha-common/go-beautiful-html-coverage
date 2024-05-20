@@ -14,7 +14,7 @@ $(LOCAL_COVER_DIR)/revisions/local.html: $(LOCAL_COVER_DIR)/revisions
 	@cd go-test-app-01; go tool cover -html=cover.out -o "../$(LOCAL_COVER_DIR)/revisions/local.html"
 	@cp $(LOCAL_COVER_DIR)/revisions/local.html $(LOCAL_COVER_DIR)/revisions/local-inc.html
 	@for file in assets/*; do ln -s "$$PWD/$$file" "$(LOCAL_COVER_DIR)/$(shell basename "$$file")"; done
-	@cd $(LOCAL_COVER_DIR); REVISION=local ../scripts/beautify-html.sh "$$html_file"
+	@cd $(LOCAL_COVER_DIR); REVISION=local ../scripts/beautify-html.sh
 
 preview: clean $(LOCAL_COVER_DIR)/revisions/local.html
 	@echo ""
