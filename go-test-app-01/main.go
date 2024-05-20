@@ -17,6 +17,7 @@ func main() {
 	printColor("red")
 
 	fmt.Println("Maybe:", maybe())
+	fmt.Println("Foo:", foo())
 }
 
 func tossCoin() string {
