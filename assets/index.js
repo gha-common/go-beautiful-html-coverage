@@ -34,7 +34,7 @@ function main() {
 
   configureCodeBlocks()
   configureSyntaxHighlight('pre .code .editor')
-  addCoverageSpans('pre .coverage span')
+  addCoverageSpans('pre .coverage .editor')
   addLineNumbers()
 
   // setup complete, restore the page visibility
@@ -42,7 +42,7 @@ function main() {
 }
 
 function addCoverageSpans(cssSelector) {
-  let spans = Array.from(document.querySelectorAll(cssSelector))
+  let spans = Array.from(document.querySelectorAll(`${cssSelector} span`))
 
   spans.forEach((span) => {
     let html = span.innerHTML

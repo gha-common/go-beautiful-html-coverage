@@ -1,4 +1,5 @@
 .vscode
 *.out
-cover.txt
+cover-test
 cover.html
+cover.txt
