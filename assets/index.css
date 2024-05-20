@@ -54,11 +54,7 @@ body {
   border-color: var(--topbar-border);
   border-bottom: 1px solid var(--topbar-border);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  span {
-    margin-left: var(--nav-gap);
-    color: var(--topbar-color);
-  }
+  padding-left: var(--nav-gap);
 
   #legend {
     display: flex;
@@ -67,7 +63,9 @@ body {
 
     span {
       padding: 2px 4px;
+      margin-left: var(--nav-gap);
       border-radius: 2px;
+      color: var(--topbar-color);
     }
   }
 
