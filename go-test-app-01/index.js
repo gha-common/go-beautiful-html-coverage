@@ -186,9 +186,8 @@ function addLineNumbers() {
   let containers = Array.from(document.querySelectorAll('#content pre > div.coverage'))
 
   containers.forEach((container) => {
-    let code = container.querySelector('.coverage')
-    let gutter = code.querySelector('.gutter')
-    let editor = code.querySelector('.editor')
+    let gutter = container.querySelector('.gutter')
+    let editor = container.querySelector('.editor')
     let lines = editor.innerHTML.split('\n')
     let gutterHtml = ''
 
