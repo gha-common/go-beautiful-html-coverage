@@ -2,12 +2,12 @@
 document.documentElement.style.setProperty('opacity', '0')
 
 let loading = load([
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css",
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css",
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js",
-  "../index.css?" + document.querySelector('script[src*="index.js"]').src.split('?').pop(),
-]);
+  'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css',
+  'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css',
+  'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js',
+  '../index.css?' + document.querySelector('script[src*="index.js"]').src.split('?').pop(),
+])
 
 // wait for the page to fully load
 document.addEventListener('DOMContentLoaded', main)
@@ -103,9 +103,9 @@ function configureFileSelect() {
   let files = document.getElementById('files')
 
   files.addEventListener('change', (e) => {
-    document.querySelectorAll('.file').forEach((el) => el.style.display = 'none')
+    document.querySelectorAll('.file').forEach((el) => (el.style.display = 'none'))
     window.scrollTo(0, 0)
-    window.requestAnimationFrame(() => document.getElementById(e.target.value).style.display = 'block')
+    window.requestAnimationFrame(() => (document.getElementById(e.target.value).style.display = 'block'))
   })
 
   files.dispatchEvent(new Event('change'))
@@ -183,61 +183,63 @@ function configureSyntaxHighlight(cssSelector) {
 }
 
 function addLineNumbers() {
-  let code = document.querySelector('#content pre > div.coverage')
-  let gutter = code.querySelector('.gutter')
-  let editor = code.querySelector('.editor')
-  let lines = editor.innerHTML.split('\n')
-  let gutterHtml = ''
+  let containers = Array.from(document.querySelectorAll('#content pre > div.coverage'))
 
-  // this function has two goals:
-  // 1. add line numbers to the gutter
-  // 2. assign a color to the line number based on the coverage of the line
-  //
-  // first, we add a .line-start span to each line in the editor.
-  // this allows us to group the spans in the editor by line.
-  // if a line has only one span, we assign the color of the span to the line number in the gutter.
-  // if a line has more than one span and they have different background colors,
-  // we can assume that the line has multiple statements with multiple coverage states
-  // and we assign a yellow-ish color to the line number in the gutter.
+  containers.forEach((container) => {
+    let code = container.querySelector('.coverage')
+    let gutter = code.querySelector('.gutter')
+    let editor = code.querySelector('.editor')
+    let lines = editor.innerHTML.split('\n')
+    let gutterHtml = ''
 
-  editor.innerHTML = lines
-    .map((line) => `<span class="line-start"></span>${line}`)
-    .join('\n')
+    // this function has two goals:
+    // 1. add line numbers to the gutter
+    // 2. assign a color to the line number based on the coverage of the line
+    //
+    // first, we add a .line-start span to each line in the editor.
+    // this allows us to group the spans in the editor by line.
+    // if a line has only one span, we assign the color of the span to the line number in the gutter.
+    // if a line has more than one span and they have different background colors,
+    // we can assume that the line has multiple statements with multiple coverage states
+    // and we assign a yellow-ish color to the line number in the gutter.
 
-  let lineNumber = 1
-  let spansInLine
-  let spans = Array.from(editor.querySelectorAll('span'))
+    editor.innerHTML = lines.map((line) => `<span class="line-start"></span>${line}`).join('\n')
 
-  for (let i = 0; i < spans.length; i++) {
-    let currentSpan = spans[i]
-    let nextSpan = spans[i + 1]
+    let lineNumber = 1
+    let spansInLine
+    let spans = Array.from(editor.querySelectorAll('span'))
 
-    if (currentSpan.classList.contains('line-start')) {
-      spansInLine = []
+    for (let i = 0; i < spans.length; i++) {
+      let currentSpan = spans[i]
+      let nextSpan = spans[i + 1]
+
+      if (currentSpan.classList.contains('line-start')) {
+        spansInLine = []
+      }
+
+      if (nextSpan?.classList?.contains('cov')) {
+        spansInLine.push(nextSpan)
+        continue
+      }
+
+      if (!nextSpan?.classList.contains('line-start')) {
+        continue
+      }
+
+      let classes = new Set(spansInLine.map((el) => el.classList[1]))
+      let className = classes.size > 1 ? 'cov-mixed' : classes.values().next().value || ''
+
+      gutterHtml += `<div class="ln ${className}">${lineNumber}</div>`
+
+      lineNumber++
     }
 
-    if (nextSpan?.classList?.contains('cov')) {
-      spansInLine.push(nextSpan)
-      continue
-    }
+    gutterHtml += `<div class="ln">${lineNumber}</div>`
+    gutter.innerHTML = gutterHtml
 
-    if (!nextSpan?.classList.contains('line-start')) {
-      continue
-    }
-
-    let classes = new Set(spansInLine.map((el) => el.classList[1]))
-    let className = classes.size > 1 ? 'cov-mixed' : classes.values().next().value || ''
-
-    gutterHtml += `<div class="ln ${className}">${lineNumber}</div>`
-
-    lineNumber++
-  }
-
-  gutterHtml += `<div class="ln">${lineNumber}</div>`
-  gutter.innerHTML = gutterHtml
-
-  // add line numbers to the coverage gutter
-  document.querySelector('#content pre > div.code > .gutter').innerHTML = gutterHtml
+    // add line numbers to the coverage gutter
+    document.querySelector('#content pre > div.code > .gutter').innerHTML = gutterHtml
+  })
 }
 
 function loadScript(src, state) {
@@ -266,7 +268,7 @@ function loadStyle(src, state) {
 function load(urls) {
   let state = {
     loaded: 0,
-    isDone: () => state.loaded === urls.length
+    isDone: () => state.loaded === urls.length,
   }
 
   for (let url of urls) {
