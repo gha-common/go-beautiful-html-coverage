@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>cointoss: Go Coverage Report</title>
+		<script src="../index.js?d58b41f29c384f0b212f0cd2fb05aa5a"></script>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">cointoss/main.go (50.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package main
+
+import (
+        "fmt"
+        "math/rand"
+)
+
+const side = "right"
+
+func main() {
+        if tossCoin() == "heads" <span class="cov0" title="0">{
+
+
+                                                                                                         fmt.Println("Heads") }</span> else<span class="cov8" title="1"> { fmt.Println(`
+                                                                                                                        Tails`) }</span>
+
+        printColor("red")
+
+        fmt.Println("Maybe:", maybe())
+        fmt.Println("Foo:", foo())
+}
+
+func tossCoin() string {
+        if rand.Intn(2) == 0 <span class="cov0" title="0">{
+                return "heads"
+        }</span> else<span class="cov8" title="1"> {
+                return "tails"
+        }</span>
+}
+
+func maybe() bool {
+        if side == "right" {
+                return true
+        } else {
+                return false
+        }
+}
+
+func printColor(color string) {
+        switch color {
+        case "red": fmt.Println("Red")
+        case "blue": fmt.Println("Blue")
+        case "green": fmt.Println("Green")
+        default: fmt.Println("Unknown color")
+        }
+}
+</pre>
+		
+		</div>
+	</body>
+</html>

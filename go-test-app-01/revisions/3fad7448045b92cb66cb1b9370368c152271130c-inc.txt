@@ -1,0 +1,5 @@
+cointoss/main.go:10:	main		50.0%
+cointoss/main.go:23:	tossCoin	50.0%
+cointoss/main.go:31:	maybe		0.0%
+cointoss/main.go:39:	printColor	0.0%
+total:			(statements)	50.0%
