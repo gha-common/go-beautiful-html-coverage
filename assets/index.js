@@ -27,11 +27,12 @@ function main() {
     return
   }
 
-  // layout
+  // setup the layout
   configureFileSelect()
   addIncrementalButton()
   addThemeButton()
 
+  // setup the content
   configureCodeBlocks()
   configureSyntaxHighlight('pre .code .editor')
   addCoverageSpans('pre .coverage .editor')
@@ -113,21 +114,27 @@ function configureFileSelect() {
     }
 
     document.location.hash = e.target.value
+
+    document.body.scrollTop = 0;
+
     document.querySelectorAll('.file').forEach((el) => (el.style.display = 'none'))
     el.style.display = 'block'
-
-    let scrollUp = (times) => {
-      if (window.scrollY === 0 && times > 3) return
-      window.scrollTo(0, 0)
-      window.requestAnimationFrame(() => scrollUp(times + 1))
-    }
-
-    scrollUp(1)
   })
 
   files.value = selected
   files.dispatchEvent(new Event('change'))
 }
+
+setInterval(() => {
+  console.log({ scrollY: window.scrollY, scrollTop: document.body.scrollTop })
+  let files = document.getElementById('files')
+  let selected = files[Math.floor(Math.random() * files.length)].value
+
+  if (files.value !== selected) {
+    files.value = selected
+    files.dispatchEvent(new Event('change'))
+  }
+}, 200)
 
 function addThemeButton() {
   let isDark = localStorage.getItem('dark') === 'true'
