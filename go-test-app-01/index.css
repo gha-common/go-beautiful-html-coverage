@@ -40,7 +40,6 @@ body {
   background: var(--background);
   transition: all 0.1s ease-in-out;
   min-height: 100vh;
-  overflow-y: scroll;
 }
 
 #topbar {
@@ -190,9 +189,12 @@ body {
       .editor {
         .cov {
           display: inline-block;
-          transform: scale(1.05, 1);
+          border-width: 0px 4px;
+          border-style: solid;
           border-radius: 2px;
+          border-color: transparent;
           color: transparent;
+          transform: translate(-4px);
         }
       }
     }
