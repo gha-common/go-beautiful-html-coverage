@@ -27,11 +27,12 @@ function main() {
     return
   }
 
-  // layout
+  // setup the layout
   configureFileSelect()
   addIncrementalButton()
   addThemeButton()
 
+  // setup the content
   configureCodeBlocks()
   configureSyntaxHighlight('pre .code .editor')
   addCoverageSpans('pre .coverage .editor')
@@ -113,16 +114,11 @@ function configureFileSelect() {
     }
 
     document.location.hash = e.target.value
+
+    document.body.scrollTop = 0;
+
     document.querySelectorAll('.file').forEach((el) => (el.style.display = 'none'))
     el.style.display = 'block'
-
-    let scrollUp = (times) => {
-      if (window.scrollY === 0 && times > 3) return
-      window.scrollTo(0, 0)
-      window.requestAnimationFrame(() => scrollUp(times + 1))
-    }
-
-    scrollUp(1)
   })
 
   files.value = selected
