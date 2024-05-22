@@ -28,6 +28,7 @@ function main() {
   }
 
   // layout
+  configureLegend()
   configureFileSelect()
   addIncrementalButton()
   addThemeButton()
@@ -39,6 +40,19 @@ function main() {
 
   // setup complete, restore the page visibility
   document.documentElement.style.setProperty('opacity', '1')
+}
+
+function configureLegend() {
+  let spans = document.querySelectorAll('#legend span')
+  for (let i = 0; i < spans.length; i++) {
+    if (spans[i].classList.length === 0) continue
+
+    if (spans[i].classList[0] === 'cov0') {
+      spans[i].classList.add('cov-uncovered')
+    } else {
+      spans[i].classList.add('cov-covered')
+    }
+  }
 }
 
 function addCoverageSpans(cssSelector) {
