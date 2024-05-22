@@ -212,20 +212,20 @@ body {
         padding: 0 16px;
       }
     }
-
-    .cov-covered {
-      color: var(--covered);
-      background-color: color-mix(in srgb, var(--covered) 10%, transparent);
-    }
-
-    .cov-uncovered {
-      color: var(--uncovered);
-      background-color: color-mix(in srgb, var(--uncovered) 20%, transparent);
-    }
-
-    .cov-mixed {
-      color: var(--mixed);
-      background-color: color-mix(in srgb, var(--mixed) 10%, transparent);
-    }
   }
+}
+
+.cov-covered {
+  color: var(--covered);
+  background-color: color-mix(in srgb, var(--covered) 10%, transparent);
+}
+
+.cov-uncovered {
+  color: var(--uncovered);
+  background-color: color-mix(in srgb, var(--uncovered) 20%, transparent);
+}
+
+.cov-mixed {
+  color: var(--mixed);
+  background-color: color-mix(in srgb, var(--mixed) 10%, transparent);
 }
