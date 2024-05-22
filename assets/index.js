@@ -125,17 +125,6 @@ function configureFileSelect() {
   files.dispatchEvent(new Event('change'))
 }
 
-setInterval(() => {
-  console.log({ scrollY: window.scrollY, scrollTop: document.body.scrollTop })
-  let files = document.getElementById('files')
-  let selected = files[Math.floor(Math.random() * files.length)].value
-
-  if (files.value !== selected) {
-    files.value = selected
-    files.dispatchEvent(new Event('change'))
-  }
-}, 200)
-
 function addThemeButton() {
   let isDark = localStorage.getItem('dark') === 'true'
 
