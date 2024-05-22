@@ -14,9 +14,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">cointoss/foo.go (100.0%)</option>
-				
-				<option value="file1">cointoss/main.go (64.7%)</option>
+				<option value="file0">cointoss/main.go (50.0%)</option>
 				
 				</select>
 			</div>
@@ -32,13 +30,6 @@
 		
 		<pre class="file" id="file0" style="display: none">package main
 
-func foo() string <span class="cov8" title="1">{
-        return "foo"
-}</span>
-</pre>
-		
-		<pre class="file" id="file1" style="display: none">package main
-
 import (
         "fmt"
         "math/rand"
@@ -46,41 +37,41 @@ import (
 
 const side = "right"
 
-func main() <span class="cov8" title="1">{
-        if tossCoin() == "heads" </span><span class="cov0" title="0">{
+func main() {
+        if tossCoin() == "heads" <span class="cov0" title="0">{
 
 
                                                                                                          fmt.Println("Heads") }</span> else<span class="cov8" title="1"> { fmt.Println(`
                                                                                                                         Tails`) }</span>
 
-        <span class="cov8" title="1">printColor("red")
+        printColor("red")
 
         fmt.Println("Maybe:", maybe())
-        fmt.Println("Foo:", foo())</span>
+        fmt.Println("Foo:", foo())
 }
 
-func tossCoin() string <span class="cov8" title="1">{
-        if rand.Intn(2) == 0 </span><span class="cov0" title="0">{
+func tossCoin() string {
+        if rand.Intn(2) == 0 <span class="cov0" title="0">{
                 return "heads"
         }</span> else<span class="cov8" title="1"> {
                 return "tails"
         }</span>
 }
 
-func maybe() bool <span class="cov8" title="1">{
-        if side == "right" </span><span class="cov8" title="1">{
+func maybe() bool {
+        if side == "right" {
                 return true
-        }</span> else<span class="cov0" title="0"> {
+        } else {
                 return false
-        }</span>
+        }
 }
 
-func printColor(color string) <span class="cov8" title="1">{
-        switch color </span>{
-        case "red":<span class="cov8" title="1"> fmt.Println("Red")</span>
-        case "blue":<span class="cov0" title="0"> fmt.Println("Blue")</span>
-        case "green":<span class="cov0" title="0"> fmt.Println("Green")</span>
-        default:<span class="cov0" title="0"> fmt.Println("Unknown color")</span>
+func printColor(color string) {
+        switch color {
+        case "red": fmt.Println("Red")
+        case "blue": fmt.Println("Blue")
+        case "green": fmt.Println("Green")
+        default: fmt.Println("Unknown color")
         }
 }
 </pre>
